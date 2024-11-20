@@ -1,5 +1,5 @@
 import styles from "@/styles/Home.module.css";
-import { SmallCard } from "@/components/cards";
+import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import { google } from "googleapis";
 import { Article } from "@/types";
 
@@ -60,9 +60,9 @@ export default async function Home() {
     <main className={styles.page}>
       <div className={styles.body}>
         <div className={styles.news}>
-          <ul>
+          News
             {data.slice(0, 10).map((item, index) => (
-              <SmallCard
+              <LeftImageSmallCard
                 key={item.slug || item.title || ""}
                 title={item.title || ""}
                 img={item.cover || ""}
@@ -71,9 +71,19 @@ export default async function Home() {
                 id={index}
               />
             ))}
-          </ul>
         </div>
-        <div className={styles.opinion}>Opinion</div>
+        <div className={styles.opinion}>Opinion
+        {data.slice(0, 10).map((item, index) => (
+              <TopImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                id={index}
+              />
+            ))}
+        </div>
         <div className={styles.sports}>Sports</div>
         <div className={styles.ae}>A+E</div>
         <div className={styles.humor}>Humor</div>

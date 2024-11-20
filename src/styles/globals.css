@@ -1,14 +1,14 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: white;
+  --foreground: black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -16,12 +16,19 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  display: flex;
+  justify-content: center;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-family: var(--cormorant-garamond);
   -moz-osx-font-smoothing: grayscale;
+  max-width: 1200px;
+  margin: 2rem;
 }
 
 * {

@@ -1,11 +1,61 @@
-.card {
+.leftcard {
     text-align: center;
     display: flex;
     flex-direction: row !important;
+    height: 150px;
 }
 
-.card img {
+.leftcard div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    /* justify-content: space-between; */
+}
+
+.leftcard img {
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-    width: 100px;
+    width: 200px;
+    height: 100%;
+}
+
+.leftcard div h2 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.leftcard div p {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.topcard {
+    width: 100%;
+}
+
+.topcard img {
+    border-radius: 0.5rem;
+    width: 100%;
+    height: fit-content;
+}
+
+.topcard div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.25rem;
+    width: fit-content;
+}
+
+.topcard div h2 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.topcard div p {
+    font-size: 0.8rem;
+    font-weight: 400;
 }
