@@ -1,95 +1,84 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "@/styles/Home.module.css";
+import { SmallCard } from "@/components/cards";
+import { google } from "googleapis";
+import { Article } from "@/types";
 
-export default function Home() {
+const sheetId = process.env.SHEET_ID!;
+const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
+
+async function fetchSpreadsheetData(): Promise<Article[]> {
+  try {
+    const auth = await google.auth.getClient({
+      projectId: keys.project_id,
+      credentials: {
+        type: "service_account",
+        private_key: keys.private_key,
+        client_email: keys.client_email,
+        client_id: keys.client_id,
+        token_url: keys.token_uri,
+        universe_domain: "googleapis.com",
+      },
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+
+    const sheets = google.sheets({ version: "v4", auth });
+
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: `Articles!A2:L21`, // Adjust range as needed
+    });
+
+    const rows = response.data.values || [];
+
+    const formattedData: Article[] = rows.map((row) => ({
+      title: row[0] || null,
+      author: row[1] || null,
+      date: row[2] || null,
+      slug: row[4] || null,
+      cover: row[5] || null,
+      views: parseInt(row[8]) || null,
+      trending: row[9] === "TRUE",
+      type: row[10] || null,
+      body: row[11] || null,
+    }));
+
+    console.log("Fetched spreadsheet data.");
+
+    return formattedData;
+  } catch (error) {
+    console.error("Error fetching spreadsheet data:", error);
+    return [];
+  }
+}
+
+export const revalidate = 3600; // 1 hour in seconds
+
+export default async function Home() {
+  const data = await fetchSpreadsheetData();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <main className={styles.page}>
+      <div className={styles.body}>
+        <div className={styles.news}>
+          <ul>
+            {data.slice(0, 10).map((item, index) => (
+              <SmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                id={index}
+              />
+            ))}
+          </ul>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className={styles.opinion}>Opinion</div>
+        <div className={styles.sports}>Sports</div>
+        <div className={styles.ae}>A+E</div>
+        <div className={styles.humor}>Humor</div>
+        <div className={styles.fc}>F+C</div>
+      </div>
+    </main>
   );
 }

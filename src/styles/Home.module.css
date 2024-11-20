@@ -1,0 +1,85 @@
+.page {
+
+}
+
+.carousel {
+  position: relative;
+  height: 233px;
+  margin-bottom: 30px;
+  display: flex;
+  width: fit-content;
+  gap: 20px;
+}
+
+.carousel img {
+  margin: 0px 0px;
+  box-shadow: 2px 2px 8px #8a8a8a;
+}
+
+.carousel {
+  animation: bannermove 5s linear infinite;
+}
+
+@keyframes bannermove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.body div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: red ;
+}
+
+.body .news {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.body .opinion {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.body .sports {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.body .ae {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.body .humor {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.body .fc {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
