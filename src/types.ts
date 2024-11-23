@@ -3,6 +3,7 @@ export interface ArticleCardInfo {
     img: string;
     author: string;
     body: string;
+    slug: string;
     id: number;
 }
 

@@ -25,7 +25,7 @@ async function fetchSpreadsheetData(): Promise<Article[]> {
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: `Articles!A2:L21`, // Adjust range as needed
+      range: `Articles!A2:M21`, // Adjust range as needed
     });
 
     const rows = response.data.values || [];
@@ -35,12 +35,15 @@ async function fetchSpreadsheetData(): Promise<Article[]> {
       author: row[1] || null,
       date: row[2] || null,
       slug: row[4] || null,
+      // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
       cover: row[5] || null,
       views: parseInt(row[8]) || null,
       trending: row[9] === "TRUE",
       type: row[10] || null,
       body: row[11] || null,
     }));
+    
+    // console.log(formattedData[0].cover)
 
     console.log("Fetched spreadsheet data.");
 
@@ -68,6 +71,7 @@ export default async function Home() {
                 img={item.cover || ""}
                 author={item.author || ""}
                 body={item.body || ""}
+                slug={item.slug || ""}
                 id={index}
               />
             ))}
@@ -80,6 +84,7 @@ export default async function Home() {
                 img={item.cover || ""}
                 author={item.author || ""}
                 body={item.body || ""}
+                slug={item.slug || ""}
                 id={index}
               />
             ))}
