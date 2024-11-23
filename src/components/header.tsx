@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import styles from "@/styles/Header.module.css";
+import Link from 'next/link';
 
 export default function Header() {
     return (
         <header className={styles.container}>
-            <a href="/">
+            <Link href="/">
                 <Image
                     src="/rf-banner.svg"
                     alt="logo"
@@ -13,11 +14,13 @@ export default function Header() {
                     height={100}
                     loading="eager"
                 />
-            </a>
+            </Link>
             <div className={styles.menu}>
+                <p>Vol. 134</p>
                 <ul>
                     <a>section 1</a>
                 </ul>
+                <p></p>
             </div>
         </header>
     );
