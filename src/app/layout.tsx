@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Cormorant_Garamond } from "next/font/google";
+import Header from "@/components/header";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "400",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cormorantGaramond.variable}`}>
+        <Header/>
         {children}
       </body>
     </html>
