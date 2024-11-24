@@ -16,11 +16,17 @@ export default function Header() {
                 />
             </Link>
             <div className={styles.menu}>
-                <p>Vol. 134</p>
+                <p className={styles.left}>Vol. 134</p>
                 <ul>
-                    <a>section 1</a>
+                    <a>News</a>
+                    <a>Opinion</a>
+                    <a>Sports</a>
+                    <a>Arts & Entertainment</a>
+                    <a>Food & Culture</a>
+                    <a>Humor</a>
+                    <a>Archives</a>
                 </ul>
-                <p></p>
+                <p className={styles.right}>{new Date().toLocaleString('default', { month: 'long' })} {new Date().getFullYear()}</p>
             </div>
         </header>
     );

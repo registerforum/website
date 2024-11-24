@@ -42,7 +42,7 @@ async function fetchSpreadsheetData(): Promise<Article[]> {
       type: row[10] || null,
       body: row[11] || null,
     }));
-    
+
     // console.log(formattedData[0].cover)
 
     console.log("Fetched spreadsheet data.");
@@ -61,23 +61,30 @@ export default async function Home() {
 
   return (
     <main className={styles.page}>
+      <div className={styles.headline}>
+
+      </div>
       <div className={styles.body}>
         <div className={styles.news}>
           News
-            {data.slice(0, 10).map((item, index) => (
-              <LeftImageSmallCard
-                key={item.slug || item.title || ""}
-                title={item.title || ""}
-                img={item.cover || ""}
-                author={item.author || ""}
-                body={item.body || ""}
-                slug={item.slug || ""}
-                id={index}
-              />
-            ))}
+          {data.filter((article) => article.type === "Metro" && article.date) // Filter by type and ensure date exists
+            .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()) // Sort by date descending
+            .slice(0, 5).map((item, index) => (
+            <LeftImageSmallCard
+              key={item.slug || item.title || ""}
+              title={item.title || ""}
+              img={item.cover || ""}
+              author={item.author || ""}
+              body={item.body || ""}
+              slug={item.slug || ""}
+              id={index}
+            />
+          ))}
         </div>
         <div className={styles.opinion}>Opinion
-        {data.slice(0, 10).map((item, index) => (
+          {data.filter((article) => article.type === "Opinion" && article.date) // Filter by type and ensure date exists
+            .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()) // Sort by date descending
+            .slice(0, 5).map((item, index) => (
               <TopImageSmallCard
                 key={item.slug || item.title || ""}
                 title={item.title || ""}

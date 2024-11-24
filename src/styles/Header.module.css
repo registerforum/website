@@ -1,14 +1,31 @@
 .menu {
     border: black solid;
-    border-width: 1px 0;
-    margin: 20px 0;
+    /* border-width: 1px 0 1px 0; */
+    border-width: 0 0 1px 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    /* padding: 10px 0; */
     width: 100%;
     display: flex;
+    justify-content: space-between;
+}
+
+.menu ul {
+    position: absolute; /* Remove the <ul> from the document flow */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* Flexbox for the links inside the <ul> */
+    gap: 1rem; /* Spacing between links */
+    list-style: none; /* Remove list styling */
+    margin: 0;
+    padding: 0;
+    white-space: nowrap; /* Prevent wrapping */
 }
 
 .banner {
     margin: 0;
-    
+    width: 100%;
 }
 
 .container {
