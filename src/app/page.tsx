@@ -76,7 +76,7 @@ export default async function Home() {
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
-            News
+            
             <div className={styles.featured}>
               {featuredNewsArticles.slice(0, 2).map((item, index) => (
                 <TopImageSmallCard
@@ -107,7 +107,7 @@ export default async function Home() {
           <div className={styles.fc}>F+C</div>
         </div>
         <div className={styles.rightcol}>
-          <div className={styles.opinion}>Opinion
+          <div className={styles.opinion}>
             {featuredOpinionArticles.slice(0, 5).map((item, index) => (
               <TopImageSmallCard
                 key={item.slug || item.title || ""}

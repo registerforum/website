@@ -13,7 +13,7 @@
 
 .carousel img {
   margin: 0px 0px;
-  box-shadow: 2px 2px 8px #8a8a8a;
+  /* box-shadow: 2px 2px 8px #8a8a8a; */
 }
 
 .carousel {
@@ -40,7 +40,16 @@
   grid-column-end: 3;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px
+  gap: 20px;
+}
+
+.rightcol:before {
+  content: '';
+  height: 100%;
+  position: absolute;
+  left: -9.5px;
+  bottom: 0;
+  border-left: 1px solid #dddddd;
 }
 
 .rightcol {
@@ -49,20 +58,31 @@
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr;
+  position: relative;
 }
 
 .body > .leftcol > div, .body > .rightcol > div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   background-color: white;
   padding: 0.75rem;
-  border: 2px solid #dddddd;
+  /* border: 2px solid #dddddd; */
 }
 
 .body .news {
   grid-column-start: 1;
   grid-column-end: 3;
+  position: relative;
+}
+
+.body .news:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  bottom: -10.5px;
+  left: 0;
+  border-bottom: 1px solid #dddddd;
 }
 
 .body .news .featured {
@@ -72,12 +92,22 @@
 }
 
 .body .opinion {
-  background-color: #dddddd !important;
+  /* background-color: #dddddd !important; */
 }
 
 .body .sports {
   grid-column-start: 1;
   grid-column-end: 2;
+  position: relative;
+}
+
+.body .sports:after {
+  content: '';
+  height: 100%;
+  position: absolute;
+  right: -10.5px;
+  bottom: 0;
+  border-left: 1px solid #dddddd;
 }
 
 .body .ae {
@@ -88,4 +118,14 @@
 .body .fc {
   grid-column-start: 1;
   grid-column-end: 3;
+  position: relative;
+}
+
+.body .fc:before {
+  content: '';
+  width: 100%;
+  position: absolute;
+  top: -10.5px;
+  left: 0;
+  border-bottom: 1px solid #dddddd;
 }
