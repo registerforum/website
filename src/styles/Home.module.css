@@ -35,54 +35,57 @@
   gap: 20px;
 }
 
-.body > div {
+.leftcol {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px
+}
+
+.rightcol {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+.body > .leftcol > div, .body > .rightcol > div {
   display: flex;
   flex-direction: column;
   gap: 10px;
   background-color: white;
-  padding: 10px;
+  padding: 0.75rem;
   border: 2px solid #dddddd;
 }
 
 .body .news {
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 3;
+}
+
+.body .news .featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 }
 
 .body .opinion {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 3;
   background-color: #dddddd !important;
 }
 
 .body .sports {
   grid-column-start: 1;
   grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 5;
 }
 
 .body .ae {
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 5;
-}
-
-.body .humor {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 5;
 }
 
 .body .fc {
   grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 5;
-  grid-row-end: 6;
+  grid-column-end: 3;
 }

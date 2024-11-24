@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Sorts_Mill_Goudy } from "next/font/google";
 import Header from "@/components/header";
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -10,6 +10,14 @@ const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--cormorant-garamond",
 });
+
+const goudy = Sorts_Mill_Goudy({
+  weight: "400",
+  style: ["normal"],
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--goudy",
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${cormorantGaramond.variable}`}>
+      <body className={`${cormorantGaramond.variable} ${goudy.variable}`}>
         <Header/>
         {children}
       </body>

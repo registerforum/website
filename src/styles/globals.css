@@ -25,7 +25,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   -webkit-font-smoothing: antialiased;
-  font-family: var(--cormorant-garamond);
+  font-family: var(--goudy);
   -moz-osx-font-smoothing: grayscale;
   max-width: 1000px;
   width: 100%;

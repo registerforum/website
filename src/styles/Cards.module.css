@@ -5,6 +5,10 @@
     height: 150px;
 }
 
+.leftcard h1 {
+    font-weight: 400;
+}
+
 .leftcard div {
     display: flex;
     flex-direction: column;
@@ -24,7 +28,7 @@
 
 .leftcard div h2 {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .leftcard div p {
@@ -34,6 +38,12 @@
 
 .topcard {
     width: 100%;
+}
+
+.topcard h1 {
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.1;
 }
 
 .topcard img {
@@ -52,7 +62,7 @@
 
 .topcard div h2 {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .topcard div p {

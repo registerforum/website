@@ -59,32 +59,56 @@ export const revalidate = 3600; // 1 hour in seconds
 export default async function Home() {
   const data = await fetchSpreadsheetData();
 
+  const featuredOpinionArticles = data
+    .filter((article) => article.trending && article.type === "Opinion" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
+  const featuredNewsArticles = data
+    .filter((article) => article.trending && article.type === "Metro" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
+
   return (
     <main className={styles.page}>
       <div className={styles.headline}>
 
       </div>
       <div className={styles.body}>
-        <div className={styles.news}>
-          News
-          {data.filter((article) => article.type === "Metro" && article.date) // Filter by type and ensure date exists
-            .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()) // Sort by date descending
-            .slice(0, 5).map((item, index) => (
-            <LeftImageSmallCard
-              key={item.slug || item.title || ""}
-              title={item.title || ""}
-              img={item.cover || ""}
-              author={item.author || ""}
-              body={item.body || ""}
-              slug={item.slug || ""}
-              id={index}
-            />
-          ))}
+        <div className={styles.leftcol}>
+          <div className={styles.news}>
+            News
+            <div className={styles.featured}>
+              {featuredNewsArticles.slice(0, 2).map((item, index) => (
+                <TopImageSmallCard
+                  key={item.slug || item.title || ""}
+                  title={item.title || ""}
+                  img={item.cover || ""}
+                  author={item.author || ""}
+                  body={item.body || ""}
+                  slug={item.slug || ""}
+                  id={index}
+                />
+              ))}
+            </div>
+            {featuredNewsArticles.slice(2, 7).map((item, index) => (
+              <LeftImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                slug={item.slug || ""}
+                id={index}
+              />
+            ))}
+          </div>
+          <div className={styles.sports}>Sports</div>
+          <div className={styles.ae}>A+E</div>
+          <div className={styles.fc}>F+C</div>
         </div>
-        <div className={styles.opinion}>Opinion
-          {data.filter((article) => article.type === "Opinion" && article.date) // Filter by type and ensure date exists
-            .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()) // Sort by date descending
-            .slice(0, 5).map((item, index) => (
+        <div className={styles.rightcol}>
+          <div className={styles.opinion}>Opinion
+            {featuredOpinionArticles.slice(0, 5).map((item, index) => (
               <TopImageSmallCard
                 key={item.slug || item.title || ""}
                 title={item.title || ""}
@@ -95,11 +119,9 @@ export default async function Home() {
                 id={index}
               />
             ))}
+          </div>
+          <div className={styles.humor}>Humor</div>
         </div>
-        <div className={styles.sports}>Sports</div>
-        <div className={styles.ae}>A+E</div>
-        <div className={styles.humor}>Humor</div>
-        <div className={styles.fc}>F+C</div>
       </div>
     </main>
   );
