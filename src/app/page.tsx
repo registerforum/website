@@ -71,7 +71,6 @@ export default async function Home() {
   return (
     <main className={styles.page}>
       <div className={styles.headline}>
-
       </div>
       <div className={styles.body}>
         <div className={styles.leftcol}>

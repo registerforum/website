@@ -9,6 +9,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    font-size: 1.1rem;
 }
 
 .menu ul {
@@ -21,6 +22,12 @@
     margin: 0;
     padding: 0;
     white-space: nowrap; /* Prevent wrapping */
+    background-color: white;
+    z-index: 2;
+}
+
+.menu a {
+    cursor: pointer;
 }
 
 .banner {
@@ -33,4 +40,46 @@
     flex-direction: column;
     align-items: center;
     font-family: var(--cormorant-garamond);
+    z-index: 10;
+    position: relative;
+}
+
+.visible {
+    width: fit-content;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdownlinks {
+    visibility: visible;
+    display: inline-block;
+}
+
+.dropdown > a {
+    padding-bottom: 11px;
+    bottom: -11px;
+}
+
+.dropdownlinks:hover .dropdownlinks {
+    visibility: visible;
+    display: inline-block;
+}
+
+.dropdownlinks {
+    visibility: hidden;
+    position: absolute;
+    left: -10px;
+    margin-top: calc(1.25 * 1.1rem + 11px);
+    line-height: 1.6;
+    z-index: -2;
+    padding: 5px 10px;
+    background-color: white;
+}
+
+.dropdownlinks a {
+    display: block;
 }

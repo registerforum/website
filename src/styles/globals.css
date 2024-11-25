@@ -1,6 +1,8 @@
 :root {
   --background: white;
   --foreground: black;
+  --gray-accent: #c1c1c1;
+  --home-gap: 20px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -14,6 +16,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  min-height: 100vh;
+  display: block;
+  box-sizing: border-box;
 }
 
 html {
@@ -29,7 +34,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 1000px;
   width: 100%;
-  margin: 2rem;
+  padding: 2rem;
 }
 
 * {

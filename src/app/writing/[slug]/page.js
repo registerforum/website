@@ -31,9 +31,16 @@ async function fetchArticles() {
   const rows = response.data.values || [];
 
   return rows.map((row) => ({
-    slug: row[4] || "", // Assuming the slug is in column E
-    title: row[0] || "", // Assuming the title is in column A
-    body: row[11] || "", // Assuming the body content is in column L
+    title: row[0] || null,
+    author: row[1] || null,
+    date: row[2] || null,
+    slug: row[4] || null,
+    // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
+    cover: row[5] || null,
+    // views: parseInt(row[8]) || null,
+    // trending: row[9] === "TRUE",
+    type: row[10] || null,
+    body: row[11] || null,
   }));
 }
 
@@ -55,6 +62,8 @@ export default async function Page({ params: paramsPromise }) {
   return (
     <main>
       <h1>{article.title}</h1>
+      <img src={article.cover} alt={article.title} />
+      <p>{article.author} - {article.date}</p>
       <article>{article.body}</article>
     </main>
   );
