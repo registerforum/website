@@ -93,8 +93,8 @@ export default async function Header() {
                 <ul> 
                     {
                         data.map((section, index) => (
-                            <div className={styles.dropdown}>
-                                <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink} key={index}>
+                            <div className={styles.dropdown} key={index}>
+                                <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink}>
                                     {section.Parent.name}
                                 </Link>
                                 <div className={styles.dropdownlinks}>
