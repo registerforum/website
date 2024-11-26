@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import styles from "@/styles/Article.module.css";
 
 // Next.js will revalidate the cache at most once every 60 seconds
 export const revalidate = 60;
@@ -25,7 +26,7 @@ async function fetchArticles() {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: sheetId,
-    range: `Articles!A2:L`, // Adjust the range as needed
+    range: `Articles!A2:N`, // Adjust the range as needed
   });
 
   const rows = response.data.values || [];
@@ -41,6 +42,7 @@ async function fetchArticles() {
     // trending: row[9] === "TRUE",
     type: row[10] || null,
     body: row[11] || null,
+    caption: row[13] || null,
   }));
 }
 
@@ -58,13 +60,20 @@ export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   const articles = await fetchArticles();
   const article = articles.find((a) => a.slug === params.slug);
+  const pars = article.body.split("\n");
 
   return (
-    <main>
-      <h1>{article.title}</h1>
-      <img src={article.cover} alt={article.title} />
-      <p>{article.author} - {article.date}</p>
-      <article>{article.body}</article>
+    <main className={styles.container}>
+      <h1 className={styles.title}>{article.title}</h1>
+      <div className={styles.cover}>
+        <img className={styles.image} src={article.cover} alt={article.title} />
+        <p className={styles.byline}>{article.caption}</p>
+      </div>
+      <article className={styles.body}>
+        {pars.map((par, index) => (
+          <p key={index} className={styles.par}>{par}</p>
+        ))}
+      </article>
     </main>
   );
 }
