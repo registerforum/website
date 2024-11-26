@@ -71,7 +71,7 @@ async function fetchSpreadsheetData(): Promise<{Parent: Section, Children: Secti
     }
 }
 
-const revalidate = 3600;
+export const revalidate = 3600;
 
 export default async function Header() {
     const data = await fetchSpreadsheetData();
@@ -92,15 +92,15 @@ export default async function Header() {
                 <p className={styles.left}>Vol. 134</p>
                 <ul> 
                     {
-                        data.map((section) => (
+                        data.map((section, index) => (
                             <div className={styles.dropdown}>
-                                <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink}>
+                                <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink} key={index}>
                                     {section.Parent.name}
                                 </Link>
                                 <div className={styles.dropdownlinks}>
                                     {
-                                        section.Children.map((child) => (
-                                            <Link href={`/section/${section.Parent.slug}/${child.slug}`}>
+                                        section.Children.map((child, childIndex) => (
+                                            <Link href={`/section/${section.Parent.slug}/${child.slug}`} key={childIndex}>
                                                 {child.name}
                                             </Link>
                                         ))
