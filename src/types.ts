@@ -17,4 +17,12 @@ export interface Article {
     trending: boolean;
     type: string | null;
     body: string | null;
-  }
+}
+
+export interface Section {
+    name: string;
+    editors: string[];
+    type: 'parent' | 'child' | 'sub';
+    parent: string | null;
+    slug: string;
+}

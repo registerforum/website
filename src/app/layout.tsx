@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className={`${cormorantGaramond.variable} ${goudy.variable}`}>
         <Header/>
         {children}
-        <Footer/>
+        {/* <Footer/> */}
       </body>
     </html>
   );
