@@ -1,6 +1,5 @@
 import { google } from "googleapis";
 import styles from "@/styles/Article.module.css";
-import { type } from "os";
 
 export const revalidate = 3600;
 
