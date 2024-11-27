@@ -26,7 +26,7 @@ async function fetchArticles() {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: sheetId,
-    range: `Articles!A2:N`, // Adjust the range as needed
+    range: `Sections!A2:N`, // Adjust the range as needed
   });
 
   const rows = response.data.values || [];
@@ -38,11 +38,6 @@ async function fetchArticles() {
     slug: row[4] || null,
     // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
     cover: row[5] || null,
-    // views: parseInt(row[8]) || null,
-    // trending: row[9] === "TRUE",
-    type: row[10] || null,
-    body: row[11] || null,
-    caption: row[13] || null,
   }));
 }
 
@@ -60,20 +55,11 @@ export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   const articles = await fetchArticles();
   const article = articles.find((a) => a.slug === params.slug);
-  const pars = article.body.split("\n");
 
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
-      <div className={styles.cover}>
-        <img className={styles.image} src={article.cover} alt={article.title} />
-        <p className={styles.byline}>{article.caption}</p>
-      </div>
-      <article className={styles.body}>
-        {pars.map((par, index) => (
-          <p key={index} className={styles.par}>{par}</p>
-        ))}
-      </article>
+
     </main>
   );
 }
