@@ -1,16 +1,15 @@
 import { google } from "googleapis";
-import { Section } from "@/types";
 
 // Next.js will revalidate the cache at most once every 60 seconds
-export const revalidate = 60;
+export const revalidate = 3660;
 
 // Allow dynamic parameters for server-side rendering on unknown paths
 export const dynamicParams = true;
 
 const sheetId = process.env.SHEET_ID;
-const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
+const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-// Fetch articles from Google Sheets
+// Fetch sections from Google Sheets
 async function fetchSections() {
   try {
     const auth = await google.auth.getClient({
@@ -35,11 +34,11 @@ async function fetchSections() {
 
     const rows = response.data.values || [];
 
-    const sectionsMap: Record<string, { Parent: Section, Children: Section[] }> = {};
+    const sectionsMap = {};
 
     rows.forEach(row => {
       const [name, editorsStr, type, parentName, slug] = row;
-      const editors = editorsStr ? editorsStr.split(", ").map((editor: string) => editor.trim()) : [];
+      const editors = editorsStr ? editorsStr.split(", ").map((editor) => editor.trim()) : [];
 
       if (type === "parent") {
         sectionsMap[slug] = { 
@@ -70,7 +69,7 @@ async function fetchSections() {
 export async function generateStaticParams() {
   const sections = await fetchSections();
   
-  const params: { params: { slug: string } }[] = [];
+  const params = [];
 
   // Generate params for each parent and its children
   sections.forEach(({ Parent }) => {
@@ -80,9 +79,8 @@ export async function generateStaticParams() {
   return params;
 }
 
-
 // Render the article page
-export default async function Page({ params: paramsPromise }: { params: Promise<{ slug: string }> }) {
+export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   const sections = await fetchSections();
   
@@ -107,4 +105,3 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
     </main>
   );
 }
-
