@@ -1,4 +1,3 @@
-import { google } from "googleapis";
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles"; 
 
