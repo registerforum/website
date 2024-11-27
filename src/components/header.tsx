@@ -7,7 +7,7 @@ import { Section } from "@/types";
 const sheetId = process.env.SHEET_ID!;
 const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
 
-async function fetchSpreadsheetData(): Promise<{Parent: Section, Children: Section[]}[]> {
+async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Section[] }[]> {
     try {
         const auth = await google.auth.getClient({
             projectId: keys.project_id,
@@ -31,7 +31,7 @@ async function fetchSpreadsheetData(): Promise<{Parent: Section, Children: Secti
 
         const rows = response.data.values || [];
 
-        const formattedData: {Parent: Section, Children: Section[]}[] = [];
+        const formattedData: { Parent: Section, Children: Section[] }[] = [];
 
         for (let i = 0; i < rows.length; i++) {
             if (rows[i][2] === "parent") {
@@ -90,7 +90,7 @@ export default async function Header() {
             </Link>
             <div className={styles.menu}>
                 <p className={styles.left}>Vol. 134</p>
-                <ul> 
+                <ul>
                     {
                         data.map((section, index) => (
                             <div className={styles.dropdown} key={index}>
@@ -99,11 +99,26 @@ export default async function Header() {
                                 </Link>
                                 <div className={styles.dropdownlinks}>
                                     {
-                                        section.Children.map((child, childIndex) => (
-                                            <Link href={`/section/${section.Parent.slug}/${child.slug}`} key={childIndex}>
-                                                {child.name}
-                                            </Link>
-                                        ))
+                                        (() => {
+                                            const links = [];
+                                            for (let childIndex = 0; childIndex < section.Children.length; childIndex++) {
+                                                const child = section.Children[childIndex];
+                                                if (child.type === "child") {
+                                                    links.push(
+                                                        <Link href={`/section/${child.slug}`} key={childIndex}>
+                                                            {child.name}
+                                                        </Link>
+                                                    );
+                                                } else {
+                                                    links.push(
+                                                        <Link href={`/section/${section.Parent.slug}#${child.slug}`} key={childIndex}>
+                                                            {child.name}
+                                                        </Link>
+                                                    )
+                                                }
+                                            }
+                                            return links;
+                                        })()
                                     }
                                 </div>
                             </div>

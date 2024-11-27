@@ -28,13 +28,41 @@ async function fetchSections() {
 
   const rows = response.data.values || [];
 
-  return rows.map((row) => ({
-    name: row[0] || null,
-    editors: row[1].split(", ") || null,  
-    type: row[2] || null,
-    parent: row[3] || null,
-    slug: row[4] || null,
-  }));
+  const sections = [];
+
+  for (const row of rows) {
+    if (row[2] === "parent" || row[2] === "child") {
+      sections.push({
+        name: row[0] || null,
+        editors: row[1] ? row[1].split(", ") : null,
+        type: row[2] || null,
+        parent: row[3] || null,
+        slug: row[4] || null,
+        children: [],
+      });
+    } else {
+      const parent = sections.find((a) => a.slug === row[3]);
+      if (parent) {
+        parent.children.push({
+          name: row[0] || null,
+          editors: row[1] ? row[1].split(", ") : null,
+          type: row[2] || null,
+          parent: row[3] || null,
+          slug: row[4] || null,
+        });
+      }
+    }
+  }
+
+  return sections;
+
+  // return rows.map((row) => ({
+  //   name: row[0] || null,
+  //   editors: row[1].split(", ") || null,  
+  //   type: row[2] || null,
+  //   parent: row[3] || null,
+  //   slug: row[4] || null,
+  // }));
 }
 
 export async function generateStaticParams() {
