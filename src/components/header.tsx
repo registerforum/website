@@ -58,8 +58,6 @@ async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Sect
             }
         }
 
-        console.log(formattedData);
-
         // console.log(formattedData[0].cover)
 
         console.log("Fetched spreadsheet data.");
