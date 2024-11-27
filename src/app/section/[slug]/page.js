@@ -54,7 +54,6 @@ async function fetchSections() {
     });
 
     const formattedData = Object.values(sectionsMap);
-    console.log(formattedData);
 
     console.log("Fetched spreadsheet data.");
 
