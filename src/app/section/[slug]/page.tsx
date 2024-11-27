@@ -79,17 +79,13 @@ async function fetchSections() {
 export async function generateStaticParams() {
   const sections = await fetchSections();
 
-  for (const section of sections) {
-    const params = section.Children.map((child) => ({
-      slug: child.slug,
-    }));
+  const params = sections.map((section) => ({
+    params: {
+      slug: section.Parent.slug
+    }
+  }));
 
-    params.push({
-      slug: section.Parent.slug,
-    });
-
-    return params;
-  }
+  return params;
 }
 
 // Render the article page
