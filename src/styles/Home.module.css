@@ -41,6 +41,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: calc(var(--home-gap)*2);
+  height: fit-content;
 }
 
 .rightcol:before {
@@ -56,7 +57,7 @@
   grid-column-start: 3;
   grid-column-end: 4;
   display: grid;
-  gap: var(--home-gap);
+  gap: calc(var(--home-gap)*2);
   grid-template-columns: 1fr;
   position: relative;
 }
@@ -92,6 +93,16 @@
 
 .body .opinion {
   /* background-color: #dddddd !important; */
+  position: relative;
+}
+
+.body .opinion:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  bottom: calc(-1 * var(--home-gap) - 0.5px);
+  left: 0;
+  border-bottom: 1px solid var(--gray-accent);
 }
 
 .body .sports {

@@ -3,6 +3,7 @@
   --foreground: black;
   --gray-accent: #c1c1c1;
   --home-gap: 20px;
+  --body-width: 1100px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -36,7 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-family: var(--goudy);
   -moz-osx-font-smoothing: grayscale;
-  max-width: 1000px;
+  max-width: var(--body-width);
   width: 100%;
   padding: 2rem;
   padding-bottom: 0;

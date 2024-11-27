@@ -43,8 +43,6 @@ async function fetchSpreadsheetData(): Promise<Article[]> {
       body: row[11] || null,
     }));
 
-    // console.log(formattedData[0].cover)
-
     console.log("Fetched spreadsheet data.");
 
     return formattedData;
@@ -67,6 +65,21 @@ export default async function Home() {
     .filter((article) => article.trending && article.type === "Metro" && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
+  const featuredSportsArticles = data
+    .filter((article) => article.trending && article.type === "Sports" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
+  const featuredAeArticles = data
+    .filter((article) => article.trending && article.type === "AE" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
+  const featuredFcArticles = data
+    .filter((article) => article.trending && article.type === "F+C" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
+  const featuredHumorArticles = data
+    .filter((article) => article.trending && article.type === "Humor" && article.date) // Filter featured with valid dates
+    .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   return (
     <main className={styles.page}>
@@ -75,7 +88,7 @@ export default async function Home() {
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
-            
+
             <div className={styles.featured}>
               {featuredNewsArticles.slice(0, 2).map((item, index) => (
                 <TopImageSmallCard
@@ -101,13 +114,8 @@ export default async function Home() {
               />
             ))}
           </div>
-          <div className={styles.sports}>Sports</div>
-          <div className={styles.ae}>A+E</div>
-          <div className={styles.fc}>F+C</div>
-        </div>
-        <div className={styles.rightcol}>
-          <div className={styles.opinion}>
-            {featuredOpinionArticles.slice(0, 5).map((item, index) => (
+          <div className={styles.sports}>
+            {featuredSportsArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={item.slug || item.title || ""}
                 title={item.title || ""}
@@ -119,7 +127,60 @@ export default async function Home() {
               />
             ))}
           </div>
-          <div className={styles.humor}>Humor</div>
+          <div className={styles.ae}>
+            {featuredAeArticles.slice(0, 2).map((item, index) => (
+              <TopImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                slug={item.slug || ""}
+                id={index}
+              />
+            ))}
+          </div>
+          <div className={styles.fc}>
+            {featuredFcArticles.slice(0, 2).map((item, index) => (
+              <TopImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                slug={item.slug || ""}
+                id={index}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={styles.rightcol}>
+          <div className={styles.opinion}>
+            {featuredOpinionArticles.slice(0, 3).map((item, index) => (
+              <TopImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                slug={item.slug || ""}
+                id={index}
+              />
+            ))}
+          </div>
+          <div className={styles.humor}>
+            {featuredHumorArticles.map((item, index) => (
+              <TopImageSmallCard
+                key={item.slug || item.title || ""}
+                title={item.title || ""}
+                img={item.cover || ""}
+                author={item.author || ""}
+                body={item.body || ""}
+                slug={item.slug || ""}
+                id={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </main>
