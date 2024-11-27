@@ -35,36 +35,27 @@ async function fetchSections() {
 
     const rows = response.data.values || [];
 
-    const formattedData: { Parent: Section, Children: Section[] }[] = [];
+    const sectionsMap: Record<string, { Parent: Section, Children: Section[] }> = {};
 
-    for (let i = 0; i < rows.length; i++) {
-      if (rows[i][2] === "parent") {
-        formattedData.push({
-          Parent: {
-            name: rows[i][0],
-            editors: rows[i][1].split(", "),
-            type: rows[i][2],
-            parent: null,
-            slug: rows[i][4]
-          },
+    rows.forEach(row => {
+      const [name, editorsStr, type, parentName, slug] = row;
+      const editors = editorsStr ? editorsStr.split(", ").map((editor: string) => editor.trim()) : [];
+
+      if (type === "parent") {
+        sectionsMap[slug] = { 
+          Parent: { name, editors, type, parent: null, slug },
           Children: []
-        });
+        };
+      } else if (type === "child" || type === "sub") {
+        const parent = sectionsMap[parentName];
+        if (parent) {
+          parent.Children.push({ name, editors, type, parent: parentName, slug });
+        }
       }
+    });
 
-      if (rows[i][2] === "child" || rows[i][2] === "sub") {
-        formattedData.find((parent) => parent.Parent.name === rows[i][3])?.Children.push({
-          name: rows[i][0],
-          editors: rows[i][1].split(", "),
-          type: rows[i][2],
-          parent: rows[i][3],
-          slug: rows[i][4]
-        });
-      }
-    }
-
+    const formattedData = Object.values(sectionsMap);
     console.log(formattedData);
-
-    // console.log(formattedData[0].cover)
 
     console.log("Fetched spreadsheet data.");
 
@@ -78,27 +69,36 @@ async function fetchSections() {
 // Generate static params for all articles
 export async function generateStaticParams() {
   const sections = await fetchSections();
+  
+  const params: { params: { slug: string } }[] = [];
 
-  const params = sections.map((section) => ({
-    params: {
-      slug: section.Parent.slug
-    }
-  }));
+  // Generate params for each parent and its children
+  sections.forEach(({ Parent }) => {
+    params.push({ params: { slug: Parent.slug } });
+  });
 
   return params;
 }
 
+
 // Render the article page
 export default async function Page({ params: paramsPromise }: { params: Promise<{ slug: string }> }) {
   const params = await paramsPromise;
-  const articles = await fetchSections();
-  const section = articles.find((section) => section.Parent.slug === params.slug);
+  const sections = await fetchSections();
+  
+  // Find the parent section based on the slug
+  const section = sections.find(section => section.Parent.slug === params.slug);
+
+  if (!section) {
+    // Handle case when section is not found, e.g., show a 404 page or a message
+    return <main><h1>Section not found</h1></main>;
+  }
 
   return (
     <main>
-      <h1>{section?.Parent.name}</h1>
+      <h1>{section.Parent.name}</h1>
       <ul>
-        {section?.Children.map((child) => (
+        {section.Children.map((child) => (
           <li key={child.slug}>
             <a href={`/section/${child.slug}`}>{child.name}</a>
           </li>
@@ -107,3 +107,4 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
     </main>
   );
 }
+

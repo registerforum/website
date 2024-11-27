@@ -2,7 +2,7 @@ import { google } from "googleapis";
 import styles from "@/styles/Article.module.css";
 
 // Next.js will revalidate the cache at most once every 60 seconds
-export const revalidate = 60;
+export const revalidate = 3600;
 
 // Allow dynamic parameters for server-side rendering on unknown paths
 export const dynamicParams = true;
