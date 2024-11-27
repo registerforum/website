@@ -86,6 +86,7 @@ export default async function Header() {
                     width={900}
                     height={100}
                     loading="eager"
+                    priority
                 />
             </Link>
             <div className={styles.menu}>
