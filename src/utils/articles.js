@@ -30,10 +30,9 @@ export default async function fetchArticles() {
       slug: row[4] || null,
       // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
       cover: row[5] || null,
-      // views: parseInt(row[8]) || null,
-      // trending: row[9] === "TRUE",
+      views: parseInt(row[8]) || null,
+      trending: row[9] === "TRUE",
       type: row[10] || null,
       body: row[11] || null,
-      caption: row[13] || null,
     }));
   }
