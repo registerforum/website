@@ -1,11 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
-import { google } from "googleapis";
-import { Article } from "@/types";
 import fetchArticles from "@/utils/articles";
-
-const sheetId = process.env.SHEET_ID!;
-const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
 
 export const revalidate = 3600; // 1 hour in seconds
 
@@ -38,8 +33,6 @@ export default async function Home() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.headline}>
-      </div>
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
