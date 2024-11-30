@@ -36,9 +36,7 @@ export default async function Page({ params: paramsPromise }) {
     }
   }
   const pars = article.body?.split("\n");
-
-  console.log(author);
-
+  
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
