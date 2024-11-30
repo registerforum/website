@@ -4,7 +4,7 @@ import fetchStaff from "@/utils/staff";
 import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600;
-// export const dynamicParams = true;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
@@ -18,7 +18,6 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  console.log(params);
   const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
     revalidate: 3600
   })();
