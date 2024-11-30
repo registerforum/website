@@ -46,7 +46,5 @@ export default async function fetchStaff() {
         }
     }
 
-    console.log(staff);
-
     return staff;
 }

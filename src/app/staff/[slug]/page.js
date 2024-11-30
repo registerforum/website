@@ -1,6 +1,7 @@
 import styles from "@/styles/Staff.module.css";
 import fetchStaff from "@/utils/staff";
 import { LeftImageSmallCard } from "@/components/cards";
+import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
