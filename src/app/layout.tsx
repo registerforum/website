@@ -25,15 +25,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  search = true,
 }: Readonly<{
   children: React.ReactNode;
-  search?: boolean;
 }>) {
   return (
     <html lang="en">
       <body className={`${cormorantGaramond.variable} ${goudy.variable}`}>
-        {/* <Header search={search} /> */}
         {children}
         {/* <Footer/> */}
       </body>
