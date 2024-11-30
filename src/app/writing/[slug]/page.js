@@ -1,3 +1,4 @@
+import Layout from "@/components/layout";
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
@@ -17,7 +18,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
-  console.log(params);
   const { slug } = params;
   const articles = await unstable_cache(async () => { return await fetchArticles() }, [params.slug], {
     revalidate: 3600
@@ -25,10 +25,9 @@ export default async function Page({ params }) {
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
 
-  console.log(article)
-
   return (
-    <main className={styles.container}>
+    <Layout>
+      <div className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
       <div className={styles.cover}>
         <img className={styles.image} src={article.cover} alt={article.title} />
@@ -50,6 +49,7 @@ export default async function Page({ params }) {
           <p key={index} className={styles.par}>{par}</p>
         ))}
       </article>
-    </main>
+      </div>
+    </Layout>
   );
 }

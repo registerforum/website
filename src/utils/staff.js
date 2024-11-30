@@ -51,8 +51,6 @@ export default async function fetchStaff() {
             person.position = 'Contributing Writer';
         }
     }
-
-    console.log(staff);
     
     return staff;
 }

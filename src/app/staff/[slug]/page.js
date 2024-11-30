@@ -3,6 +3,7 @@ import styles from "@/styles/Staff.module.css";
 import { LeftImageSmallCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
 import fetchArticles from "@/utils/articles";
+import Layout from "@/components/layout";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -43,7 +44,7 @@ export default async function Page({ params: paramsPromise }) {
   const personArticles = articles.filter((a) => a.authors.some((author) => author.slug === params.slug));
 
   return (
-    <div className={styles.container}>
+    <Layout className={styles.container}>
       <h1 className={styles.name}>{person.name}</h1>
       <h2 className={styles.position}>{person.position || "Contributing Writer"}</h2>
       <div className={styles.articles}>
@@ -60,6 +61,6 @@ export default async function Page({ params: paramsPromise }) {
           />
         ))}
       </div>
-    </div>
+    </Layout>
   );
 }

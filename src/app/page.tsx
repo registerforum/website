@@ -2,6 +2,7 @@ import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
+import Layout from "@/components/layout";
 
 export const revalidate = 3600; // 1 hour in seconds
 
@@ -9,8 +10,6 @@ export default async function Home() {
   const data = await unstable_cache(async () => {return await fetchArticles()}, ["homepage"], {
     revalidate: 3600
   })();
-
-  console.log(data);
 
   const featuredOpinionArticles = data
     .filter((article) => article.trending && article.type === "opinion" && article.date) // Filter featured with valid dates
@@ -37,7 +36,7 @@ export default async function Home() {
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   return (
-    <main className={styles.page}>
+    <Layout className={styles.page}>
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
@@ -157,6 +156,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 }

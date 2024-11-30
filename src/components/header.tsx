@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { google } from "googleapis";
 import { Section } from "@/types";
 import { unstable_cache } from "next/cache";
+import Search from "@/components/search";
 
 const sheetId = process.env.SHEET_ID!;
 const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
@@ -70,13 +71,18 @@ async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Sect
     }
 }
 
-export default async function Header() {
+interface HeaderProps {
+    search: boolean;
+}
+
+export default async function Header({ search }: HeaderProps) {
     const data = await unstable_cache(async () => { return await fetchSpreadsheetData() }, [], {
         revalidate: 3600
     })();
 
     return (
         <header className={styles.container}>
+            {search && <Search placeholder=''/>}
             <Link href="/">
                 <Image
                     src="/rf-banner.svg"
