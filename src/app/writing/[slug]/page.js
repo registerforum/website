@@ -18,8 +18,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["article", params.slug], {
-    revalidate: 3600
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["article"], {
+    revalidate: 3600,
+    tags: [slug],
   })();
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
