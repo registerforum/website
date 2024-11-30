@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { Article } from '@/types';
+import { LeftImageSmallCard } from './cards';
+import styles from '@/styles/Search.module.css';
+import { container } from 'googleapis/build/src/apis/container';
 
 export default function Search({ placeholder }: { placeholder: string }) {
     const [searchTerm, setSearchTerm] = useState("");
@@ -23,25 +26,35 @@ export default function Search({ placeholder }: { placeholder: string }) {
     }
 
     return (
-        <div className="relative flex flex-1 flex-shrink-0">
-            <label htmlFor="search" className="sr-only">
-                Search
-            </label>
-            <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                placeholder={placeholder}
-                onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                }}
-            />
-            <button onClick={() => {
-                handleSearch(searchTerm);
-            }}>
-                Search
-            </button>
-            <div>
+        <div className={styles.container}>
+            <div className={styles.inputcontainer}>
+                <input
+                    className={styles.searchbar}
+                    placeholder={placeholder}
+                    onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                    }}
+                />
+                <button className={styles.searchbutton} onClick={() => {
+                    handleSearch(searchTerm);
+                }}>
+                    Search
+                </button>
+            </div>
+            <div className={styles.searchresults}>
                 {results.map((result, index) => (
-                    <div key={index}>{result.title}</div>
+                    <LeftImageSmallCard
+                        key={index}
+                        title={result.title}
+                        cover={result.cover}
+                        authors={result.authors}
+                        body={result.body}
+                        slug={result.slug}
+                        date={result.date}
+                        trending={result.trending}
+                        type={result.type}
+                        views={result.views}
+                    />
                 ))}
             </div>
         </div>
