@@ -30,7 +30,7 @@ export default async function Page({ params: paramsPromise }) {
       </div>
       <div className={styles.author}>
         <a href={`/staff/${article.author.slug}`} className={styles.name}>{article.author.name}</a>
-        <p className={styles.position}>,&nbsp;{article.author.position}</p>
+        <p className={styles.position}>,&nbsp;{article.author.position || "Contributing Writer"}</p>
       </div>
       <article className={styles.body}>
         {pars.map((par, index) => (
