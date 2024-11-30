@@ -25,6 +25,9 @@ export default async function Page({ params: paramsPromise }) {
     revalidate: 3600
   })();
   const article = articles.find((a) => a.slug === params.slug);
+  if (!article) {
+    return <div>Article not found</div>;
+  }
   var author = {};
   if (staff.find((a) => a.name === article.author)) {
     author = staff.find((a) => a.name === article.author);
@@ -36,7 +39,7 @@ export default async function Page({ params: paramsPromise }) {
     }
   }
   const pars = article.body?.split("\n");
-  
+
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
@@ -44,9 +47,10 @@ export default async function Page({ params: paramsPromise }) {
         <img className={styles.image} src={article.cover} alt={article.title} />
         <p className={styles.caption}>{article.caption}</p>
       </div>
-      {(article.author) && (
-        <a className={styles.author} href={`/staff/${article.author.toLowerCase().replace(/\s/g, "-")}`}>By&nbsp;{article.author},&nbsp;<div className={styles.position}>{author.position}</div></a>
-      )}
+      <div className={styles.author}>
+        <a href={`/staff/${author.slug}`} className={styles.name}>{author.name}</a>
+        <p className={styles.position}>{author.position}</p>
+      </div>
       <article className={styles.body}>
         {pars.map((par, index) => (
           <p key={index} className={styles.par}>{par}</p>
