@@ -6,7 +6,7 @@ import { unstable_cache } from "next/cache";
 export const revalidate = 3600; // 1 hour in seconds
 
 export default async function Home() {
-  const data = await unstable_cache(async () => {return await fetchArticles()}, [], {
+  const data = await unstable_cache(async () => {return await fetchArticles()}, ["homepage"], {
     revalidate: 3600
   })();
 

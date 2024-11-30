@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+  const articles = await unstable_cache(async () => {return await fetchArticles()}, [params.slug], {
     revalidate: 3600
   })();
   const person = articles.find((a) => a.author.slug === params.slug).author;
