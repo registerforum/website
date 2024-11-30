@@ -3,6 +3,7 @@ import styles from "@/styles/Header.module.css";
 import Link from 'next/link';
 import { google } from "googleapis";
 import { Section } from "@/types";
+import { unstable_cache } from "next/cache";
 
 const sheetId = process.env.SHEET_ID!;
 const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
@@ -69,10 +70,10 @@ async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Sect
     }
 }
 
-export const revalidate = 3600;
-
 export default async function Header() {
-    const data = await fetchSpreadsheetData();
+    const data = await unstable_cache(async () => { return await fetchSpreadsheetData() }, [], {
+        revalidate: 3600
+    })();
 
     return (
         <header className={styles.container}>
