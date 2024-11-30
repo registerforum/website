@@ -76,7 +76,7 @@ interface HeaderProps {
 }
 
 export default async function Header({ search }: HeaderProps) {
-    const data = await unstable_cache(async () => { return await fetchSpreadsheetData() }, [], {
+    const data = await unstable_cache(async () => { return await fetchSpreadsheetData() }, ["header"], {
         revalidate: 3600
     })();
 
