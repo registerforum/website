@@ -1,4 +1,3 @@
-import Layout from "@/components/layout";
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
@@ -26,8 +25,7 @@ export default async function Page({ params }) {
   const pars = article.body?.split("\n");
 
   return (
-    <Layout>
-      <div className={styles.container}>
+    <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
       <div className={styles.cover}>
         <img className={styles.image} src={article.cover} alt={article.title} />
@@ -49,7 +47,6 @@ export default async function Page({ params }) {
           <p key={index} className={styles.par}>{par}</p>
         ))}
       </article>
-      </div>
-    </Layout>
+    </main>
   );
 }

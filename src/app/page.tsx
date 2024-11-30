@@ -2,7 +2,6 @@ import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
-import Layout from "@/components/layout";
 
 export const revalidate = 3600; // 1 hour in seconds
 
@@ -36,7 +35,7 @@ export default async function Home() {
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   return (
-    <Layout className={styles.page} search={true}>
+    <main className={styles.page}>
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
@@ -156,6 +155,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </Layout>
+    </main>
   );
 }

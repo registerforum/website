@@ -3,7 +3,6 @@ import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
 import { LeftImageSmallCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
-import Layout from "@/components/layout";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -30,8 +29,7 @@ export default async function Page({ params: paramsPromise }) {
   const sectionArticles = articles.filter((a) => a.type === section.slug);
 
   return (
-    <Layout>
-      <div className={styles.container}>
+      <main className={styles.container}>
         <h1 className={styles.title}>{section.name}</h1>
         <div className={styles.articles}>
           {
@@ -51,7 +49,6 @@ export default async function Page({ params: paramsPromise }) {
             ))
           }
         </div>
-      </div>
-    </Layout>
+      </main>
   );
 }
