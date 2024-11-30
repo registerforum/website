@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Cormorant_Garamond, Sorts_Mill_Goudy } from "next/font/google";
-import Header from "@/components/header";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "400",

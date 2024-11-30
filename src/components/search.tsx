@@ -2,21 +2,12 @@
 
 import { useState } from 'react';
 import { Article } from '@/types';
-import { useRouter } from 'next/router';
 
 export default function Search({ placeholder }: { placeholder: string }) {
-    let timeout: NodeJS.Timeout;
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState<Article[]>([]);
 
     function handleSearch(term: string) {
-        // console.log(term);
-
-        // if (timeout) {
-        //     clearTimeout(timeout);
-        // }
-
-        // timeout = setTimeout(() => {
         fetch(`/api/search`, {
             method: 'POST',
             headers: {
@@ -29,7 +20,6 @@ export default function Search({ placeholder }: { placeholder: string }) {
                 console.log(data);
                 setResults(data);
             });
-        // }, 1000); 
     }
 
     return (
@@ -44,8 +34,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
                     setSearchTerm(e.target.value);
                 }}
             />
-            <button onClick={(e) => {
-                    handleSearch(searchTerm);
+            <button onClick={() => {
+                handleSearch(searchTerm);
             }}>
                 Search
             </button>

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const articles = await unstable_cache(async () => { return await fetchArticles() }, ["homepage"], {
             revalidate: 3600

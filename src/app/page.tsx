@@ -36,7 +36,7 @@ export default async function Home() {
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   return (
-    <Layout className={styles.page}>
+    <Layout className={styles.page} search={true}>
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
