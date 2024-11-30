@@ -25,7 +25,15 @@ export default async function Page({ params: paramsPromise }) {
     revalidate: 3600
   })();
   const article = articles.find((a) => a.slug === params.slug);
-  const author = staff.find((a) => a.name === article.author);
+  if (staff.find((a) => a.name === article.author)) {
+    const author = staff.find((a) => a.name === article.author);
+  } else {
+    const author = {
+      name: article.author,
+      slug: article.author.toLowerCase().replace(/\s/g, "-"),
+      position: 'Contributing Writer'
+    }
+  }
   const pars = article.body?.split("\n");
 
   console.log(author);
