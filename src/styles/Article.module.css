@@ -37,3 +37,14 @@
     flex-direction: column;
     align-items: center;
 }
+
+.author {
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+    display: flex;
+}
+
+.author .position {
+    font-style: italic;
+}

@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    font-size: 1.8em;
+    font-weight: 400;
+    display: flex;
+}
+
+.position {
+    font-style: italic;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.articles {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 750px;
+}
