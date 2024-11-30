@@ -8,7 +8,11 @@ export function LeftImageSmallCard(info: Article) {
                 <div className={styles.leftcard}>
                     <img src={info.cover} alt="Picture of the author" />
                     <div className={styles.text}>
-                        <h2>{info.author.name}</h2>
+                        <h2>{info.authors?.map((author, index) => (
+                            <span key={index}>
+                                {author.name}{index < info.authors.length - 1 ? ', ' : ''}
+                            </span>
+                        ))}</h2>
                         <h1>{info.title}</h1>
                         <p>{info.body?.slice(0, 100)}...</p>
                     </div>
@@ -26,7 +30,11 @@ export function TopImageSmallCard(info: Article) {
                     <img src={info.cover} alt="Picture of the author" />
                     <div className={styles.text}>
                         <h1>{info.title}</h1>
-                        <h2>{info.author.name}</h2>
+                        <h2>{info.authors?.map((author, index) => (
+                            <span key={index}>
+                                {author.name}{index < info.authors.length - 1 ? ', ' : ''}
+                            </span>
+                        ))}</h2>
                         <p>{info.body?.slice(0, 100)}...</p>
                     </div>
                 </div>

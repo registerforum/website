@@ -8,22 +8,24 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
     revalidate: 3600
   })();
 
   var staff = [];
 
   for (const article of articles) {
-    if (!staff.find((a) => a.name === article.author.name)) {
-      staff.push({
-        name: article.author.name || null,
-        slug: article.author.name?.toLowerCase().replace(/\s/g, "-"),
-        position: 'Contributing Writer',
-        articles: [article],
-      });
-    } else if (!staff.find((a) => a.name === article.author.name).articles.find((a) => a.slug === article.slug)) {
-      staff.find((a) => a.name === article.author.name).articles.push(article);
+    for (const author of article.authors) {
+      if (!staff.find((a) => a.name === author.name)) {
+        staff.push({
+          name: author.name || null,
+          slug: author.name?.toLowerCase().replace(/\s/g, "-"),
+          position: 'Contributing Writer',
+          articles: [article],
+        });
+      } else if (!staff.find((a) => a.name === author.name).articles.find((a) => a.slug === article.slug)) {
+        staff.find((a) => a.name === author.name).articles.push(article);
+      }
     }
   }
 
@@ -34,11 +36,11 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [params.slug], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, [params.slug], {
     revalidate: 3600
   })();
-  const person = articles.find((a) => a.author.slug === params.slug).author;
-  const personArticles = articles.filter((a) => a.author.slug === params.slug);
+  const person = articles.find((a) => a.authors.some((author) => author.slug === params.slug)).authors.find((author) => author.slug === params.slug);
+  const personArticles = articles.filter((a) => a.authors.some((author) => author.slug === params.slug));
 
   return (
     <div className={styles.container}>
@@ -46,7 +48,7 @@ export default async function Page({ params: paramsPromise }) {
       <h2 className={styles.position}>{person.position || "Contributing Writer"}</h2>
       <div className={styles.articles}>
         {personArticles.map((article) => (
-          <LeftImageSmallCard key={article.slug} 
+          <LeftImageSmallCard key={article.slug}
             title={article.title}
             cover={article.cover}
             slug={article.slug}

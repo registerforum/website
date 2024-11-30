@@ -38,11 +38,22 @@
     align-items: center;
 }
 
-.author {
+.authors {
     font-size: 1.2em;
     font-weight: 400;
     margin-bottom: 1.2rem;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.authors > a {
+    display: flex;
+    justify-content: center;
+}
+
+.authors > p {
+    text-align: center;
 }
 
 .author .position {

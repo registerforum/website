@@ -1,6 +1,7 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
+import React from "react";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -8,18 +9,23 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
   const articles = await fetchArticles();
 
-  return articles.map((article) => ({
-    slug: article.slug,
+  const slugs = articles.map((article) => ({
+    slug: article.slug || null,
   }));
+
+  return slugs;
 }
 
-export default async function Page({ params: paramsPromise }) {
-  const params = await paramsPromise;
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [params.slug], {
+export default async function Page({ params }) {
+  console.log(params);
+  const { slug } = params;
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, [params.slug], {
     revalidate: 3600
   })();
-  const article = articles.find((a) => a.slug === params.slug);
+  const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
+
+  console.log(article)
 
   return (
     <main className={styles.container}>
@@ -28,9 +34,16 @@ export default async function Page({ params: paramsPromise }) {
         <img className={styles.image} src={article.cover} alt={article.title} />
         <p className={styles.caption}>{article.caption}</p>
       </div>
-      <div className={styles.author}>
-        <a href={`/staff/${article.author.slug}`} className={styles.name}>{article.author.name}</a>
-        <p className={styles.position}>,&nbsp;{article.author.position || "Contributing Writer"}</p>
+      <div className={styles.authors}>
+        {article.authors && article.authors.map((author, index) => (
+          <React.Fragment key={index}>
+            <a href={`/staff/${author.slug}`} className={styles.author}>
+              <div className={styles.name}>{author.name}</div>
+              <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
+            </a>
+            {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
+          </React.Fragment>
+        ))}
       </div>
       <article className={styles.body}>
         {pars.map((par, index) => (

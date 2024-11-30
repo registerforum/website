@@ -29,20 +29,32 @@ export default async function fetchArticles() {
     const rows = response.data.values || [];
     const staffRows = staffResponse.data.values || [];
   
-    return rows.map((row) => ({
-      title: row[0] || null,
-      author: {
-        name: row[1] || null,
-        slug: row[1] ? row[1].toLowerCase().replace(/\s/g, "-") : null,
-        position: staffRows.find((a) => a[0] === row[1]) ? staffRows.find((a) => a[0] === row[1])[2] : "Contributing Writer",
-      },
-      date: row[2] || null,
-      slug: row[4] || null,
-      // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
-      cover: row[5] || null,
-      views: parseInt(row[8]) || null,
-      trending: row[9] === "TRUE",
-      type: row[10] || null,
-      body: row[11] || null,
-    }));
+    const articles = [];
+    for (const row of rows) {
+      const slug = row[4];
+      if (!slug) break;
+
+      const authorNames = row[1] ? row[1].split(", ") : null;
+
+      const authors = authorNames ? authorNames.map((author) => {
+        return {
+          name: author,
+          slug: author.toLowerCase().replace(/\s/g, "-"),
+          position: staffRows.find((a) => a[0] === author) ? staffRows.find((a) => a[0] === author)[2] : "Contributing Writer",
+        }
+      }) : null;
+
+      articles.push({
+        title: row[0] || null,
+        authors: authors || null,
+        date: row[2] || null,
+        slug: slug,
+        cover: row[5] || null,
+        views: parseInt(row[8]) || null,
+        trending: row[9] === "TRUE",
+        type: row[10] || null,
+        body: row[11] || null,
+      });
+    }
+    return articles;
   }

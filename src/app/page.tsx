@@ -48,7 +48,7 @@ export default async function Home() {
                   key={index}
                   title={item.title || ""}
                   cover={item.cover || ""}
-                  author={item.author || ""}
+                  authors={item.authors || ""}
                   body={item.body || ""}
                   slug={item.slug || ""}
                   date={item.date || ""}
@@ -63,7 +63,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -79,7 +79,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -95,7 +95,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -111,7 +111,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -129,7 +129,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -145,7 +145,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                authors={item.authors || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
