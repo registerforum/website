@@ -98,34 +98,23 @@ export default async function Header({ search }: HeaderProps) {
                 <p className={styles.left}>Vol. 134</p>
                 <ul>
                     {
-                        data.map((section, index) => (
-                            <li className={styles.dropdown} key={index}>
+                        data.map((section) => (
+                            <li className={styles.dropdown} key={section.Parent.slug}>
                                 <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink}>
                                     {section.Parent.name}
                                 </Link>
                                 <div className={styles.dropdownlinks}>
-                                    {
-                                        (() => {
-                                            const links = [];
-                                            for (let childIndex = 0; childIndex < section.Children.length; childIndex++) {
-                                                const child = section.Children[childIndex];
-                                                if (child.type === "child") {
-                                                    links.push(
-                                                        <Link href={`/section/${child.slug}`} key={childIndex}>
-                                                            {child.name}
-                                                        </Link>
-                                                    );
-                                                } else {
-                                                    links.push(
-                                                        <Link href={`/section/${section.Parent.slug}#${child.slug}`} key={childIndex}>
-                                                            {child.name}
-                                                        </Link>
-                                                    )
-                                                }
-                                            }
-                                            return links;
-                                        })()
-                                    }
+                                    {section.Children.map((child) => (
+                                        child.type === "child" ? (
+                                            <Link href={`/section/${child.slug}`} key={child.slug}>
+                                                {child.name}
+                                            </Link>
+                                        ) : (
+                                            <Link href={`/section/${section.Parent.slug}#${child.slug}`} key={child.slug}>
+                                                {child.name}
+                                            </Link>
+                                        )
+                                    ))}
                                 </div>
                             </li>
                         ))
