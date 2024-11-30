@@ -38,7 +38,7 @@ export default async function Page({ params: paramsPromise }) {
         <img className={styles.image} src={article.cover} alt={article.title} />
         <p className={styles.caption}>{article.caption}</p>
       </div>
-      {article.author && (
+      {(article.author && author) && (
         <a className={styles.author} href={`/staff/${article.author.toLowerCase().replace(/\s/g, "-")}`}>By&nbsp;{article.author},&nbsp;<div className={styles.position}>{author.position}</div></a>
       )}
       <article className={styles.body}>
