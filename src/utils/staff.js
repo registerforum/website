@@ -46,5 +46,13 @@ export default async function fetchStaff() {
         }
     }
 
+    for (const person of staff) {
+        if (!person.position) {
+            person.position = 'Contributing Writer';
+        }
+    }
+
+    console.log(staff);
+    
     return staff;
 }
