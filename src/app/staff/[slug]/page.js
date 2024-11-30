@@ -8,7 +8,7 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
     revalidate: 3600
   })();
 
@@ -36,7 +36,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff", params.slug], {
     revalidate: 3600
   })();
   const person = articles.find((a) => a.authors.some((author) => author.slug === params.slug)).authors.find((author) => author.slug === params.slug);

@@ -19,11 +19,11 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const sections = await unstable_cache(async () => { return await fetchSections() }, ["section"], {
+  const sections = await unstable_cache(async () => { return await fetchSections() }, ["section", params.slug], {
     revalidate: 3600
   })();
   const section = sections.find((a) => a.slug === params.slug);
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["section"], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["section", params.slug], {
     revalidate: 3600
   })();
   const sectionArticles = articles.filter((a) => a.type === section.slug);
