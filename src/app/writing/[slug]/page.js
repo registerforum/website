@@ -7,9 +7,7 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
-    revalidate: 3600
-  })();
+  const articles = await fetchArticles();
 
   return articles.map((article) => ({
     slug: article.slug,
