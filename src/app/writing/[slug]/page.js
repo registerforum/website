@@ -1,5 +1,5 @@
 import styles from "@/styles/Article.module.css";
-import fetchArticles from "@/utils/articles"; 
+import fetchArticles from "@/utils/articles";
 import fetchStaff from "@/utils/staff";
 import { unstable_cache } from "next/cache";
 
@@ -7,7 +7,7 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
     revalidate: 3600
   })();
 
@@ -18,14 +18,17 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
     revalidate: 3600
   })();
-  const staff = await unstable_cache(async () => {return await fetchStaff()}, [], {
+  const staff = await unstable_cache(async () => { return await fetchStaff() }, [], {
     revalidate: 3600
   })();
   const article = articles.find((a) => a.slug === params.slug);
-  const author = staff.find((a) => a.name === article.author);
+  var author;
+  if (article.author) {
+    author = staff.find((a) => a.name === article.author);
+  }
   const pars = article.body?.split("\n");
 
   return (
