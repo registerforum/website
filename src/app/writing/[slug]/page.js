@@ -1,7 +1,6 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles"; 
 import fetchStaff from "@/utils/staff";
-import { title } from "process";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
