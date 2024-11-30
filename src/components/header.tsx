@@ -92,7 +92,7 @@ export default async function Header() {
                 <ul>
                     {
                         data.map((section, index) => (
-                            <div className={styles.dropdown} key={index}>
+                            <li className={styles.dropdown} key={index}>
                                 <Link href={`/section/${section.Parent.slug}`} className={styles.visiblelink}>
                                     {section.Parent.name}
                                 </Link>
@@ -120,7 +120,7 @@ export default async function Header() {
                                         })()
                                     }
                                 </div>
-                            </div>
+                            </li>
                         ))
                     }
                 </ul>
