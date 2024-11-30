@@ -31,17 +31,19 @@ export default async function Page({ params }) {
         <img className={styles.image} src={article.cover} alt={article.title} />
         <p className={styles.caption}>{article.caption}</p>
       </div>
-      <div className={styles.authors}>
-        {article.authors && article.authors.map((author, index) => (
-          <React.Fragment key={index}>
-            <a href={`/staff/${author.slug}`} className={styles.author}>
-              <div className={styles.name}>{author.name}</div>
-              <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
-            </a>
-            {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
-          </React.Fragment>
-        ))}
-      </div>
+      {article.authors && article.authors.length > 0 && (
+        <div className={styles.authors}>
+          {article.authors.map((author, index) => (
+            <React.Fragment key={index}>
+              <a href={`/staff/${author.slug}`} className={styles.author}>
+                <div className={styles.name}>{author.name}</div>
+                <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
+              </a>
+              {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
+            </React.Fragment>
+          ))}
+        </div>
+      )}
       <article className={styles.body}>
         {pars.map((par, index) => (
           <p key={index} className={styles.par}>{par}</p>
