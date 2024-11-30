@@ -18,12 +18,10 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
-    revalidate: 3600
-  })();
-  const staff = await unstable_cache(async () => { return await fetchStaff() }, [], {
-    revalidate: 3600
-  })();
+  const [articles, staff] = await Promise.all([
+    unstable_cache(async () => { return await fetchArticles() }, [], { revalidate: 3600 })(),
+    unstable_cache(async () => { return await fetchStaff() }, [], { revalidate: 3600 })()
+  ]);
   const article = articles.find((a) => a.slug === params.slug);
   if (!article) {
     return <div>Article not found</div>;
