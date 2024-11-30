@@ -1,11 +1,14 @@
 import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
+import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600; // 1 hour in seconds
 
 export default async function Home() {
-  const data = await fetchArticles();
+  const data = await unstable_cache(async () => {return await fetchArticles()}, [], {
+    revalidate: 3600
+  })();
 
   const featuredOpinionArticles = data
     .filter((article) => article.trending && article.type === "opinion" && article.date) // Filter featured with valid dates

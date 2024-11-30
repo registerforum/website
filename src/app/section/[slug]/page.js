@@ -7,7 +7,9 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const sections = await fetchSections();
+  const sections = await unstable_cache(async () => {return await fetchSections()}, [], {
+    revalidate: 3600
+  })();
 
   return sections.map((section) => ({
     slug: section.slug,
@@ -16,10 +18,13 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const sections = await fetchSections();
+  const sections = await unstable_cache(async () => {return await fetchSections()}, [], {
+    revalidate: 3600
+  })();
   const section = sections.find((a) => a.slug === params.slug);
-
-  const articles = await fetchArticles();
+  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+    revalidate: 3600
+  })();
   const sectionArticles = articles.filter((a) => a.type === section.slug);
 
   console.log(sectionArticles);

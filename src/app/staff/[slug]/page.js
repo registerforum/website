@@ -6,7 +6,9 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const staff = await fetchStaff();
+  const staff = await unstable_cache(async () => {return await fetchStaff()}, [], {
+    revalidate: 3600
+  })();
 
   return staff.map((person) => ({
     slug: person.slug,
@@ -15,7 +17,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const staff = await fetchStaff();
+  const staff = await unstable_cache(async () => {return await fetchStaff()}, [], {
+    revalidate: 3600
+  })();
   const person = staff.find((a) => a.slug === params.slug);
 
   return (

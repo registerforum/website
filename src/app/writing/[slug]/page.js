@@ -3,10 +3,12 @@ import fetchArticles from "@/utils/articles";
 import fetchStaff from "@/utils/staff";
 
 export const revalidate = 3600;
-export const dynamicParams = true;
+// export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles();
+  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+    revalidate: 3600
+  })();
 
   return articles.map((article) => ({
     slug: article.slug,
@@ -16,8 +18,12 @@ export async function generateStaticParams() {
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   console.log(params);
-  const articles = await fetchArticles();
-  const staff = await fetchStaff();
+  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+    revalidate: 3600
+  })();
+  const staff = await unstable_cache(async () => {return await fetchStaff()}, [], {
+    revalidate: 3600
+  })();
   const article = articles.find((a) => a.slug === params.slug);
   const author = staff.find((a) => a.name === article.author);
   const pars = article.body?.split("\n");
