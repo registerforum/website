@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Article } from '@/types';
 import { LeftImageSmallCard } from './cards';
 import styles from '@/styles/Search.module.css';
-import { container } from 'googleapis/build/src/apis/container';
 
 export default function Search({ placeholder }: { placeholder: string }) {
     const [searchTerm, setSearchTerm] = useState("");
