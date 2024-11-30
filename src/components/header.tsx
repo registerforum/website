@@ -9,7 +9,7 @@ import Search from "@/components/search";
 const sheetId = process.env.SHEET_ID!;
 const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
 
-async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Section[] }[]> {
+const spreadsheetData = unstable_cache(async (): Promise<{ Parent: Section, Children: Section[] }[]> => {
     try {
         const auth = await google.auth.getClient({
             projectId: keys.project_id,
@@ -60,8 +60,6 @@ async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Sect
             }
         }
 
-        // console.log(formattedData[0].cover)
-
         console.log("Fetched spreadsheet data.");
 
         return formattedData;
@@ -69,16 +67,16 @@ async function fetchSpreadsheetData(): Promise<{ Parent: Section, Children: Sect
         console.error("Error fetching spreadsheet data:", error);
         return [];
     }
-}
+}, ["header"], {
+    revalidate: 3600
+});
 
 interface HeaderProps {
     search: boolean;
 }
 
 export default async function Header({ search }: HeaderProps) {
-    const data = await unstable_cache(async () => { return await fetchSpreadsheetData() }, ["header"], {
-        revalidate: 3600
-    })();
+    const data = await spreadsheetData();
 
     return (
         <header className={styles.container}>
