@@ -1,6 +1,6 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
-// import fetchStaff from "@/utils/staff";
+import fetchStaff from "@/utils/staff";
 import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600;
@@ -21,12 +21,14 @@ export default async function Page({ params: paramsPromise }) {
   const articles = await unstable_cache(async () => { return await fetchArticles() }, [], {
     revalidate: 3600
   })();
-  // const staff = await unstable_cache(async () => { return await fetchStaff() }, [], {
-  //   revalidate: 3600
-  // })();
+  const staff = await unstable_cache(async () => { return await fetchStaff() }, [], {
+    revalidate: 3600
+  })();
   const article = articles.find((a) => a.slug === params.slug);
-  // const author = staff.find((a) => a.name === article.author);
+  const author = staff.find((a) => a.name === article.author);
   const pars = article.body?.split("\n");
+
+  console.log(author);
 
   return (
     <main className={styles.container}>
