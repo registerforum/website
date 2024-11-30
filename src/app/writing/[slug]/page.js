@@ -1,6 +1,5 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
-import fetchStaff from "@/utils/staff";
 import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600;
@@ -16,23 +15,12 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const [articles, staff] = await Promise.all([
-    unstable_cache(async () => { return await fetchArticles() }, [], { revalidate: 3600 })(),
-    unstable_cache(async () => { return await fetchStaff() }, [], { revalidate: 3600 })()
-  ]);
+  const articles = await unstable_cache(async () => {return await fetchArticles()}, [], {
+    revalidate: 3600
+  })();
   const article = articles.find((a) => a.slug === params.slug);
   if (!article) {
     return <div>Article not found</div>;
-  }
-  var author = {};
-  if (staff.find((a) => a.name === article.author)) {
-    author = staff.find((a) => a.name === article.author);
-  } else {
-    author = {
-      name: article.author,
-      slug: article.author.toLowerCase().replace(/\s/g, "-"),
-      position: 'Contributing Writer'
-    }
   }
   const pars = article.body?.split("\n");
 
@@ -44,8 +32,8 @@ export default async function Page({ params: paramsPromise }) {
         <p className={styles.caption}>{article.caption}</p>
       </div>
       <div className={styles.author}>
-        <a href={`/staff/${author.slug}`} className={styles.name}>{author.name}</a>
-        <p className={styles.position}>{author.position}</p>
+        <a href={`/staff/${article.author.slug}`} className={styles.name}>{article.author.name}</a>
+        <p className={styles.position}>,&nbsp;{article.author.position}</p>
       </div>
       <article className={styles.body}>
         {pars.map((par, index) => (

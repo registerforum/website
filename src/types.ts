@@ -9,7 +9,11 @@ export interface ArticleCardInfo {
 
 export interface Article {
     title: string | null;
-    author: string | null;
+    author: {
+        name: string | null;
+        slug: string | null;
+        position: string | null;
+    };
     date: string | null;
     slug: string | null;
     cover: string | null;

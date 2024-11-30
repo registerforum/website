@@ -10,6 +10,8 @@ export default async function Home() {
     revalidate: 3600
   })();
 
+  console.log(data);
+
   const featuredOpinionArticles = data
     .filter((article) => article.trending && article.type === "opinion" && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
@@ -77,7 +79,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                author={item.author.name || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -93,7 +95,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                author={item.author.name || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -109,7 +111,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                author={item.author.name || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -127,7 +129,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                author={item.author.name || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}
@@ -143,7 +145,7 @@ export default async function Home() {
                 key={index}
                 title={item.title || ""}
                 cover={item.cover || ""}
-                author={item.author || ""}
+                author={item.author.name || ""}
                 body={item.body || ""}
                 slug={item.slug || ""}
                 date={item.date || ""}

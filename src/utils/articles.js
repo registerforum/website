@@ -20,12 +20,22 @@ export default async function fetchArticles() {
       spreadsheetId: sheetId,
       range: `Articles!A2:N`, // Adjust the range as needed
     });
+
+    const staffResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: `Writers!A2:C`, // Adjust the range as needed
+    });
   
     const rows = response.data.values || [];
+    const staffRows = staffResponse.data.values || [];
   
     return rows.map((row) => ({
       title: row[0] || null,
-      author: row[1] || null,
+      author: {
+        name: row[1] || null,
+        slug: row[1] ? row[1].toLowerCase().replace(/\s/g, "-") : null,
+        position: staffRows.find((a) => a[0] === row[1]) ? staffRows.find((a) => a[0] === row[1])[2] : "Contributing Writer",
+      },
       date: row[2] || null,
       slug: row[4] || null,
       // cover: row[12] ? row[12].replace("https://drive.google.com/file/d/", "https://drive.usercontent.google.com/download?id=").slice(0, -18).concat("&export=view&authuser=0") || null : null,
