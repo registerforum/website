@@ -139,3 +139,36 @@
   left: 0;
   border-bottom: 1px solid var(--gray-accent);
 }
+
+@media (max-width: 768px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .leftcol, .rightcol, .news, .sports, .ae, .fc {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  .rightcol:before, .body .news:after, .body .opinion:after, .body .sports:after, .body .fc:before {
+    display: none;
+  }
+
+  .body > .leftcol > div, .body > .rightcol > div {
+    gap: var(--home-gap);
+  }
+
+  .body .news .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .body .sports {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .body .ae {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}

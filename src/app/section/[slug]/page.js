@@ -37,7 +37,7 @@ export default async function Page({ params: paramsPromise }) {
               <LeftImageSmallCard
                 key={index}
                 title={item.title}
-                author={item.author}
+                author={item.authors}
                 date={item.date}
                 slug={item.slug}
                 cover={item.cover}
