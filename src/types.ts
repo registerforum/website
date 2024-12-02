@@ -24,9 +24,10 @@ export interface Article {
 }
 
 export interface Section {
-    name: string;
-    editors: string[];
-    type: 'parent' | 'child' | 'sub';
+    name: string | null;
+    editors: string[] | null;
+    type: string | null;
     parent: string | null;
-    slug: string;
-}
+    slug: string | null;
+    children: Section[];
+};

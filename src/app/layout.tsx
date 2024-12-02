@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Cormorant_Garamond, Sorts_Mill_Goudy } from "next/font/google";
-import MobileMenu from "@/components/mobilemenu";
 import fetchLinks from "@/utils/links";
 import { unstable_cache } from "next/cache";
+import Header from "@/components/header";
+import { Section } from "@/types";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "400",
@@ -31,15 +32,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const links = await unstable_cache(async () => { return await fetchLinks() }, ["links"], {
+  const links: Section[] = await unstable_cache(async () => {
+    const fetchedLinks = await fetchLinks();
+    return fetchedLinks.map(link => ({
+      name: link.Parent.name,
+      editors: link.Parent.editors,
+      type: link.Parent.type,
+      parent: link.Parent.parent,
+      slug: link.Parent.slug,
+      children: link.Children,
+    }));
+  }, ["links"], {
     revalidate: 3600
   })();
 
   return (
     <html lang="en">
       <body className={`${cormorantGaramond.variable} ${goudy.variable}`}>
-        {/* <Header search={false}/> */}
-        <MobileMenu links={links}/>
+        <Header links={links}/>
         {children}
         {/* <Footer/> */}
       </body>
