@@ -32,7 +32,8 @@ export default async function Page({ params: paramsPromise }) {
   if (section.type === "child") {
     sectionArticles = articles.filter((a) => a.type === section.slug);
   } else {
-    const subSections = sections.filter((a) => a.parent === section.slug).map((a) => a.slug);
+    var subSections = sections.filter((a) => a.parent === section.slug).map((a) => a.slug);
+    subSections.push(section.slug);
 
     console.log(subSections)
 
