@@ -12,6 +12,8 @@ export async function generateStaticParams() {
     revalidate: 3600
   })();
 
+  // console.log(sections)
+
   return sections.map((section) => ({
     slug: section.slug,
   }));
@@ -26,29 +28,38 @@ export default async function Page({ params: paramsPromise }) {
   const articles = await unstable_cache(async () => { return await fetchArticles() }, ["section", params.slug], {
     revalidate: 3600
   })();
-  const sectionArticles = articles.filter((a) => a.type === section.slug);
+  var sectionArticles = [];
+  if (section.type === "child") {
+    sectionArticles = articles.filter((a) => a.type === section.slug);
+  } else {
+    const subSections = sections.filter((a) => a.parent === section.slug).map((a) => a.slug);
+
+    console.log(subSections)
+
+    sectionArticles = articles.filter((a) => subSections.includes(a.type));
+  }
 
   return (
-      <main className={styles.container}>
-        <h1 className={styles.title}>{section.name}</h1>
-        <div className={styles.articles}>
-          {
-            sectionArticles.map((item, index) => (
-              <LeftImageSmallCard
-                key={index}
-                title={item.title}
-                author={item.authors}
-                date={item.date}
-                slug={item.slug}
-                cover={item.cover}
-                views={item.views}
-                body={item.body}
-                trending={item.trending}
-                type={item.type}
-              />
-            ))
-          }
-        </div>
-      </main>
+    <main className={styles.container}>
+      <h1 className={styles.title}>{section.name}</h1>
+      <div className={styles.articles}>
+        {
+          sectionArticles.map((item, index) => (
+            <LeftImageSmallCard
+              key={index}
+              title={item.title}
+              author={item.authors}
+              date={item.date}
+              slug={item.slug}
+              cover={item.cover}
+              views={item.views}
+              body={item.body}
+              trending={item.trending}
+              type={item.type}
+            />
+          ))
+        }
+      </div>
+    </main>
   );
 }
