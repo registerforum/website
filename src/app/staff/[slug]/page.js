@@ -29,6 +29,7 @@ export async function generateStaticParams() {
     }
   }
 
+
   return staff.map((person) => ({
     slug: person.slug,
   }));
@@ -41,7 +42,13 @@ export default async function Page({ params: paramsPromise }) {
     tags: [params.slug],
   })();
   const person = articles.find((a) => a.authors.some((author) => author.slug === params.slug)).authors.find((author) => author.slug === params.slug);
-  const personArticles = articles.filter((a) => a.authors.some((author) => author.slug === params.slug));
+  let personArticles = [];
+  
+  for (const article of articles) {
+    if (article.authors.some((author) => author.slug === params.slug)) {
+      personArticles.push(article);
+    }
+  }
 
   return (
     <main className={styles.container}>

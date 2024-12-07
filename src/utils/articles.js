@@ -31,29 +31,30 @@ export default async function fetchArticles() {
   
     const articles = [];
     for (const row of rows) {
-      const slug = row[4];
+      const slug = row[5];
       if (!slug) break;
 
       const authorNames = row[1] ? row[1].split(", ") : null;
+      const authorTitles = row[2] ? row[2].split(", ") : null;
 
       const authors = authorNames ? authorNames.map((author) => {
         return {
           name: author,
           slug: author.toLowerCase().replace(/\s/g, "-"),
-          position: staffRows.find((a) => a[0] === author) ? staffRows.find((a) => a[0] === author)[2] : "Contributing Writer",
+          position: authorTitles ? authorTitles[authorNames.indexOf(author)] : null,
         }
       }) : null;
 
       articles.push({
         title: row[0] || null,
         authors: authors || null,
-        date: row[2] || null,
+        date: row[3] || null,
         slug: slug,
-        cover: row[5] || null,
-        views: parseInt(row[8]) || null,
-        trending: row[9] === "TRUE",
-        type: row[10] || null,
-        body: row[11] || null,
+        cover: row[6] || null,
+        views: parseInt(row[9]) || null,
+        trending: row[10] === "TRUE",
+        type: row[11] || null,
+        body: row[12] || null,
       });
     }
     return articles;
