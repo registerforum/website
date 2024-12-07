@@ -91,39 +91,47 @@ export default function Header({ links }: Readonly<{ links: Section[] }>) {
                             style={showMenu ? { left: "0" } : { left: "-100%" }}
                             className={styles.linkscontainer}
                         >
-                            <button onClick={() => setShowMenu(!showMenu)} className={styles.closemenu}>
-                                Close
+                            <button onClick={() => setShowMenu(!showMenu)} className={styles.closebutton}>
+                                <div className={styles.closearrow}></div>
                             </button>
                             <ul>
-                                {links.map((section, index) => (
-                                    <li className={styles.dropdown} key={index}>
-                                        <details>
-                                            <summary>
-                                                <Link href={`/section/${section.slug}`} className={styles.visiblelink} onClick={() => setShowMenu(!showMenu)}>
-                                                    {section.name}
-                                                </Link>
-                                            </summary>
-                                            <div className={styles.dropdownlinks}>
-                                                {section.children?.map((child) => (
-                                                    child.type === "child" ? (
-                                                        <Link href={`/section/${child.slug}`} key={child.slug} onClick={() => setShowMenu(!showMenu)}>
-                                                            {child.name}
-                                                        </Link>
-                                                    ) : (
-                                                        <Link href={`/section/${section.slug}#${child.slug}`} key={child.slug} onClick={() => setShowMenu(!showMenu)}>
-                                                            {child.name}
-                                                        </Link>
-                                                    )
-                                                ))}
-                                            </div>
-                                        </details>
-                                    </li>
-                                ))}
+                                {links.map((section, index) => 
+                                    section.children && section.children.length > 0 ? (
+                                        <li className={styles.dropdown} key={index}>
+                                            <details>
+                                                <summary>
+                                                    <Link href={`/section/${section.slug}`} className={styles.visiblelink} onClick={() => setShowMenu(!showMenu)}>
+                                                        {section.name}
+                                                    </Link>
+                                                </summary>
+                                                <div className={styles.dropdownlinks}>
+                                                    {section.children.map((child) => (
+                                                        child.type === "child" ? (
+                                                            <Link href={`/section/${child.slug}`} key={child.slug} onClick={() => setShowMenu(!showMenu)}>
+                                                                {child.name}
+                                                            </Link>
+                                                        ) : (
+                                                            <Link href={`/section/${section.slug}#${child.slug}`} key={child.slug} onClick={() => setShowMenu(!showMenu)}>
+                                                                {child.name}
+                                                            </Link>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </details>
+                                        </li>
+                                    ) : (
+                                        <li className={styles.nondropdown} key={index}>
+                                            <Link href={`/section/${section.slug}`} className={styles.visiblelink} onClick={() => setShowMenu(!showMenu)}>
+                                                {section.name}
+                                            </Link>
+                                        </li>
+                                    )
+                                )}
                             </ul>
                         </div>
                         <div className={styles.infocontainer}>
-                            <button onClick={() => setShowMenu(!showMenu)} className={styles.menuicon}>
-                                {showMenu ? "Close" : "Menu"}
+                            <button onClick={() => setShowMenu(!showMenu)} className={styles.openbutton}>
+                                <div className={styles.openarrow}></div>
                             </button>
                             <div>
                                 <p className={styles.left}>Vol. 134</p>

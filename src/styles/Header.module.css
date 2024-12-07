@@ -97,12 +97,44 @@
     display: block;
 }
 
+.openarrow {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+}
+
+.closearrow {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    width: 10px;
+    height: 10px;
+    transform: rotate(-135deg);
+    z-index: 0;
+}
+
+.openbutton {
+    background: none;
+    border: none;
+    z-index: 0;
+}
+
+.closebutton {
+    background: none;
+    border: none;
+    z-index: 0;
+    height: 1rem;
+    padding: 2rem;
+}
+
 @media (max-width: 900px) {
     .linkscontainer {
         width: 100%;
         max-width: 400px;
         position: fixed;
         top: 0;
+        z-index: 10;
         /* left: -100vw; */
         height: 100vh;
         background-color: white;
@@ -113,8 +145,9 @@
     .linkscontainer ul {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
+        gap: 0.8rem;
+        padding: 2rem;
+        padding-top: 0;
         width: 100%;
         margin-left: 0;
         position: relative;
@@ -135,6 +168,10 @@
     .dropdown {
         display: flex;
         flex-direction: column;
+    }
+
+    .nondropdown {
+        padding-left: 1rem;
     }
 
     .dropdownlinks {

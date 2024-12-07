@@ -9,7 +9,7 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
-    revalidate: 3600
+    revalidate: 3600,
   })();
 
   var staff = [];
