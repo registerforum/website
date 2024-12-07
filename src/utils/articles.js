@@ -20,14 +20,8 @@ export default async function fetchArticles() {
       spreadsheetId: sheetId,
       range: `Articles!A2:N`, // Adjust the range as needed
     });
-
-    const staffResponse = await sheets.spreadsheets.values.get({
-      spreadsheetId: sheetId,
-      range: `Writers!A2:C`, // Adjust the range as needed
-    });
   
     const rows = response.data.values || [];
-    const staffRows = staffResponse.data.values || [];
   
     const articles = [];
     for (const row of rows) {
