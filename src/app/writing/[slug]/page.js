@@ -24,13 +24,13 @@ export default async function Page({ params }) {
   })();
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
-
+  
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
       <div className={styles.cover}>
         <img className={styles.image} src={article.cover} alt={article.title} />
-        <p className={styles.caption}>{article.caption}</p>
+        <p className={styles.caption}>Photo: {article.photocredit}</p>
       </div>
       {article.authors && article.authors.length > 0 && (
         <div className={styles.authors}>

@@ -49,6 +49,7 @@ export default async function fetchArticles() {
         trending: row[10] === "TRUE",
         type: row[11] || null,
         body: row[12] || null,
+        photocredit: row[13] || null,
       });
     }
     return articles;
