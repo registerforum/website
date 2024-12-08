@@ -67,7 +67,7 @@ export default async function Page({ params: paramsPromise }) {
               cover={article.cover}
               slug={article.slug}
               caption={article.caption}
-              author={article.author}
+              authors={article.authors}
               date={article.date}
               views={article.views}
               body={article.body}
