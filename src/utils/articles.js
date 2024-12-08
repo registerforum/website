@@ -1,5 +1,13 @@
 import { google } from "googleapis";
 
+function formatDriveUrl(driveUrl) {
+  const fileIdMatch = driveUrl.match(/\/d\/([^/]+)/);
+  if (fileIdMatch && fileIdMatch[1]) {
+    return `https://drive.google.com/uc?id=${fileIdMatch[1]}`;
+  }
+  return driveUrl;
+}
+
 export default async function fetchArticles() {
     const sheetId = process.env.SHEET_ID;
     const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
@@ -44,7 +52,7 @@ export default async function fetchArticles() {
         authors: authors || null,
         date: row[3] || null,
         slug: slug,
-        cover: row[6] || null,
+        cover: formatDriveUrl(row[6]) || null,
         views: parseInt(row[9]) || null,
         trending: row[10] === "TRUE",
         type: row[11] || null,

@@ -1,12 +1,18 @@
 import styles from "@/styles/Cards.module.css";
 import { Article } from "@/types";
+import Image from "next/image";
 
 export function LeftImageSmallCard(info: Article) {
     return (
         <a href={`/writing/${info.slug}`}>
             {info.cover && (
                 <div className={styles.leftcard}>
-                    <img src={info.cover} alt="Picture of the author" />
+                    <Image
+                        src={info.cover}
+                        alt="Picture of the author"
+                        width={200}
+                        height={200}
+                    />
                     <div className={styles.text}>
                         <h2>{info.authors?.map((author, index) => (
                             <span key={index}>
@@ -27,7 +33,12 @@ export function TopImageSmallCard(info: Article) {
         <a href={`/writing/${info.slug}`}>
             {info.cover && (
                 <div className={styles.topcard}>
-                    <img src={info.cover} alt="Picture of the author" />
+                    <Image
+                        src={info.cover}
+                        alt="Picture of the author"
+                        width={200}
+                        height={200}
+                    />
                     <div className={styles.text}>
                         <h1>{info.title}</h1>
                         <h2>{info.authors?.map((author, index) => (
