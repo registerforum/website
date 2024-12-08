@@ -60,7 +60,7 @@ export default async function fetchArticles() {
         authors: authors || null,
         date: row[3] || null,
         slug: slug,
-        cover: saveImageToLocal(row[6]) || null,
+        cover: await saveImageToLocal(row[6]) || null,
         views: parseInt(row[9]) || null,
         trending: row[10] === "TRUE",
         type: row[11] || null,
