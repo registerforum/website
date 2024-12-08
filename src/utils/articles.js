@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import fs from 'fs';
 import path from 'path';
 import fetch from 'node-fetch';
+import { unstable_cache } from "next/cache";
 
 async function saveImageToLocal(driveUrl) {
   const fileIdMatch = driveUrl.match(/\/d\/([^/]+)/);
@@ -33,10 +34,12 @@ export default async function fetchArticles() {
   
     const sheets = google.sheets({ version: "v4", auth });
   
-    const response = await sheets.spreadsheets.values.get({
+    const response = await unstable_cache(async () => {
+      return await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
       range: `Articles!A2:N`, // Adjust the range as needed
-    });
+      });
+    }, ["articles"]);
   
     const rows = response.data.values || [];
   

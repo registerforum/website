@@ -8,9 +8,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const data = await unstable_cache(async () => { return await fetchArticles() }, ["home"], {
-    revalidate: 360
-  })();
+  const data = await fetchArticles();
 
   const featuredOpinionArticles = data
     .filter((article) => article.trending && article.type === "opinion" && article.date) // Filter featured with valid dates
