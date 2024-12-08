@@ -110,4 +110,13 @@
         width: 100%;
         height: fit-content;
     }
+
+    .leftcard {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .leftcard div p {
+        content: none;
+    }
 }
