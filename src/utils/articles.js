@@ -1,9 +1,17 @@
 import { google } from "googleapis";
+import fs from 'fs';
+import path from 'path';
+import fetch from 'node-fetch';
 
-function formatDriveUrl(driveUrl) {
+async function saveImageToLocal(driveUrl) {
   const fileIdMatch = driveUrl.match(/\/d\/([^/]+)/);
   if (fileIdMatch && fileIdMatch[1]) {
-    return `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}`;
+    const imageUrl = `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}`;
+    const response = await fetch(imageUrl);
+    const buffer = await response.buffer();
+    const filePath = path.join(process.cwd(), 'public', 'images', `${fileIdMatch[1]}.jpg`);
+    fs.writeFileSync(filePath, buffer);
+    return `/images/${fileIdMatch[1]}.jpg`;
   }
   return driveUrl;
 }
