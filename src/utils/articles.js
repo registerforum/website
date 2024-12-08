@@ -10,6 +10,7 @@ async function saveImageToLocal(driveUrl) {
     const response = await fetch(imageUrl);
     const buffer = await response.buffer();
     const filePath = path.join(process.cwd(), 'public', 'images', `${fileIdMatch[1]}.jpg`);
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, buffer);
     return `/images/${fileIdMatch[1]}.jpg`;
   }
