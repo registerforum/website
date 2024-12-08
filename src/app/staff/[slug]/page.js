@@ -1,16 +1,13 @@
 import styles from "@/styles/Staff.module.css";
 // import fetchStaff from "@/utils/staff";
 import { ListCard } from "@/components/cards";
-import { unstable_cache } from "next/cache";
 import fetchArticles from "@/utils/articles";
 
 export const revalidate = 360;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
-    revalidate: 360,
-  })();
+  const articles = await fetchArticles();
 
   var staff = [];
 
@@ -36,9 +33,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: paramsPromise }) {
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
-    revalidate: 360,
-  })();
+  const articles = await fetchArticles();
 
   const params = await paramsPromise;
 
@@ -51,10 +46,7 @@ export async function generateMetadata({ params: paramsPromise }) {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
-    revalidate: 360,
-    tags: [params.slug],
-  })();
+  const articles = await fetchArticles();
   const person = articles.find((a) => a.authors.some((author) => author.slug === params.slug)).authors.find((author) => author.slug === params.slug);
   let personArticles = [];
 

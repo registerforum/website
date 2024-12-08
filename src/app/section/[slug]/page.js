@@ -36,9 +36,7 @@ export default async function Page({ params: paramsPromise }) {
     revalidate: 360
   })();
   const section = sections.find((a) => a.slug === params.slug);
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["section", params.slug], {
-    revalidate: 360
-  })();
+  const articles = await fetchArticles();
   var sectionArticles = [];
   if (section.type === "child") {
     sectionArticles = articles.filter((a) => a.type === section.slug);
