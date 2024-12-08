@@ -1,7 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
-import { unstable_cache } from "next/cache";
 
 export const metadata = {
   title: "Home | Register Forum",

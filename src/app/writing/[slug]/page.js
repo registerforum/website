@@ -1,6 +1,5 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
-import { unstable_cache } from "next/cache";
 import React from "react";
 
 export const revalidate = 360;
@@ -17,9 +16,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: paramsPromise }) {
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["articleMetadata"], {
-    revalidate: 360
-  })();
+  const articles = await fetchArticles();
 
   const params = await paramsPromise;
 
@@ -30,10 +27,7 @@ export async function generateMetadata({ params: paramsPromise }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["article"], {
-    revalidate: 360,
-    tags: [slug],
-  })();
+  const articles = await fetchArticles();
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
 
