@@ -1,6 +1,5 @@
 import styles from "@/styles/Cards.module.css";
 import { Article } from "@/types";
-import Image from "next/image";
 
 export function LeftImageSmallCard(info: Article) {
     return (
