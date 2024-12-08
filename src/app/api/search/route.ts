@@ -5,7 +5,7 @@ import { unstable_cache } from "next/cache";
 export async function POST(req: NextRequest) {
     try {
         const articles = await unstable_cache(async () => { return await fetchArticles() }, ["homepage"], {
-            revalidate: 3600
+            revalidate: 360
         })();
 
         // const articles = await fetchArticles();

@@ -4,12 +4,12 @@ import fetchArticles from "@/utils/articles";
 import { LeftImageSmallCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 3600;
+export const revalidate = 360;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const sections = await unstable_cache(async () => { return await fetchSections() }, ["section"], {
-    revalidate: 3600
+    revalidate: 360
   })();
 
   return sections.map((section) => ({
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params: paramsPromise }) {
   const sections = await unstable_cache(async () => { return await fetchSections() }, ["section"], {
-    revalidate: 3600
+    revalidate: 360
   })();
 
   const params = await paramsPromise;
@@ -33,11 +33,11 @@ export async function generateMetadata({ params: paramsPromise }) {
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   const sections = await unstable_cache(async () => { return await fetchSections() }, ["section", params.slug], {
-    revalidate: 3600
+    revalidate: 360
   })();
   const section = sections.find((a) => a.slug === params.slug);
   const articles = await unstable_cache(async () => { return await fetchArticles() }, ["section", params.slug], {
-    revalidate: 3600
+    revalidate: 360
   })();
   var sectionArticles = [];
   if (section.type === "child") {

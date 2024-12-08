@@ -46,7 +46,7 @@ export default async function RootLayout({
       children: link.Children,
     }));
   }, ["links"], {
-    revalidate: 3600
+    revalidate: 360
   })();
 
   return (

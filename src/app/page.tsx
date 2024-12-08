@@ -3,7 +3,7 @@ import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 3600; // 1 hour in seconds
+export const revalidate = 360; // 1 hour in seconds
 
 export const metadata = {
   title: "Home | Register Forum",
@@ -11,7 +11,7 @@ export const metadata = {
 
 export default async function Home() {
   const data = await unstable_cache(async () => {return await fetchArticles()}, ["home"], {
-    revalidate: 3600
+    revalidate: 360
   })();
 
   const featuredOpinionArticles = data
