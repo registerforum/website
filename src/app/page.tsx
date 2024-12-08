@@ -2,6 +2,8 @@ import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
 
+export const revalidate = 30;
+
 export const metadata = {
   title: "Home | Register Forum",
 };
@@ -32,8 +34,6 @@ export default async function Home() {
   const featuredHumorArticles = data
     .filter((article) => article.trending && article.type === "humor" && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
-
-  console.log(data);
 
   return (
     <main className={styles.page}>

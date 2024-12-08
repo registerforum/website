@@ -55,6 +55,6 @@ const fetchArticles = unstable_cache(async () => {
   }
 
   return articles;
-}, { tags: ["articles"], revalidate: 300 }); // Revalidate every 5 minutes
+}, { tags: ["articles"], revalidate: 30 }); // Revalidate every 5 minutes
 
 export default fetchArticles;
