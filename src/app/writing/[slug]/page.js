@@ -48,7 +48,7 @@ export default async function Page({ params }) {
             <React.Fragment key={index}>
               <a href={`/staff/${author.slug}`} className={styles.author}>
                 <div className={styles.name}>{author.name}</div>
-                <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
+                <p className={styles.position}>,&nbsp;{author.position?.trim() || "Contributing Writer"}</p>
               </a>
               {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
             </React.Fragment>
