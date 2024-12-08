@@ -46,7 +46,7 @@ export default function Header({ links }: Readonly<{ links: Section[] }>) {
         <header className={styles.container}>
             <Link href="/">
                 <img
-                    src={windowWidth >= 900 ? "/rf-banner.svg" : "/rf-banner-mobile.svg"}
+                    src={windowWidth >= 600 ? "/rf-banner.svg" : "/rf-banner-mobile.svg"}
                     alt="logo"
                     className={styles.banner}
                 />

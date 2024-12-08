@@ -187,3 +187,12 @@
         gap: 1rem;
     }
 }
+
+@media (max-width: 600px) {
+    .banner {
+        aspect-ratio: 0;
+        width: 100% !important;
+        padding: 1rem;
+        padding-bottom: 0;
+    }
+}
