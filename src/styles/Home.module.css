@@ -56,9 +56,9 @@
 .rightcol {
   grid-column-start: 3;
   grid-column-end: 4;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: calc(var(--home-gap)*2);
-  grid-template-columns: 1fr;
   position: relative;
 }
 

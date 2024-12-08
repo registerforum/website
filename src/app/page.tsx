@@ -127,7 +127,7 @@ export default async function Home() {
         </div>
         <div className={styles.rightcol}>
           <div className={styles.opinion}>
-            {featuredOpinionArticles.slice(0, 3).map((item, index) => (
+            {featuredOpinionArticles.slice(0, 4).map((item, index) => (
               <TopImageSmallCard
                 key={index}
                 title={item.title || ""}
@@ -143,7 +143,7 @@ export default async function Home() {
             ))}
           </div>
           <div className={styles.humor}>
-            {featuredHumorArticles.map((item, index) => (
+            {featuredHumorArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={index}
                 title={item.title || ""}

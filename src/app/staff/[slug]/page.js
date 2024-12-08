@@ -65,7 +65,7 @@ export default async function Page({ params: paramsPromise }) {
   return (
       <main className={styles.container}>
         <h1 className={styles.name}>{person.name}</h1>
-        <h2 className={styles.position}>{person.position || "Contributing Writer"}</h2>
+        <h2 className={styles.position}>{person.position?.trim() || "Contributing Writer"}</h2>
         <div className={styles.articles}>
           {personArticles.filter(article => article.visibility).map((article) => (
             <LeftImageSmallCard key={article.slug}

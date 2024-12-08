@@ -17,13 +17,16 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
   const sections = await unstable_cache(async () => { return await fetchSections() }, ["section"], {
     revalidate: 3600
   })();
 
+  const params = await paramsPromise;
+  const slug = params.slug;
+
   return {
-    title: sections.find((a) => a.slug === params.slug).name,
+    title: sections.find((a) => a.slug === slug).name,
   }
 }
 
