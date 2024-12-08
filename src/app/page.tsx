@@ -33,6 +33,7 @@ export default async function Home() {
     .filter((article) => article.trending && article.type === "humor" && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
+  console.log(data);
 
   return (
     <main className={styles.page}>
