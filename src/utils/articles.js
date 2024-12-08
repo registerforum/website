@@ -3,7 +3,7 @@ import { google } from "googleapis";
 function formatDriveUrl(driveUrl) {
   const fileIdMatch = driveUrl.match(/\/d\/([^/]+)/);
   if (fileIdMatch && fileIdMatch[1]) {
-    return `https://drive.google.com/uc?id=${fileIdMatch[1]}`;
+    return `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}`;
   }
   return driveUrl;
 }
