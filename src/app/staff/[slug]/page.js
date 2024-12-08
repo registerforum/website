@@ -3,7 +3,6 @@ import styles from "@/styles/Staff.module.css";
 import { LeftImageSmallCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
 import fetchArticles from "@/utils/articles";
-import Head from "next/head";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
