@@ -23,7 +23,10 @@ const goudy = Sorts_Mill_Goudy({
 })
 
 export const metadata: Metadata = {
-  title: "Register Forum",
+  title: {
+    template: '%s | Register Forum',
+    default: 'Register Forum',
+  },
   description: "The Official Student Newspaper of CRLS",
 };
 

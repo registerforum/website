@@ -35,6 +35,18 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }) {
+  const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
+    revalidate: 3600,
+  })();
+
+  const person = articles.find((a) => a.authors.some((author) => author.slug === params.slug)).authors.find((author) => author.slug === params.slug);
+
+  return {
+    title: person.name,
+  }
+}
+
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
   const articles = await unstable_cache(async () => { return await fetchArticles() }, ["staff"], {
@@ -51,9 +63,7 @@ export default async function Page({ params: paramsPromise }) {
   }
 
   return (
-    <>
       <main className={styles.container}>
-        <title>{person.name} - Register Forum</title>
         <h1 className={styles.name}>{person.name}</h1>
         <h2 className={styles.position}>{person.position || "Contributing Writer"}</h2>
         <div className={styles.articles}>
@@ -71,6 +81,5 @@ export default async function Page({ params: paramsPromise }) {
           ))}
         </div>
       </main>
-    </>
   );
 }

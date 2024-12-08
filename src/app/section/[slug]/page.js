@@ -12,11 +12,19 @@ export async function generateStaticParams() {
     revalidate: 3600
   })();
 
-  // console.log(sections)
-
   return sections.map((section) => ({
     slug: section.slug,
   }));
+}
+
+export async function generateMetadata({ params }) {
+  const sections = await unstable_cache(async () => { return await fetchSections() }, ["section"], {
+    revalidate: 3600
+  })();
+
+  return {
+    title: sections.find((a) => a.slug === params.slug).name,
+  }
 }
 
 export default async function Page({ params: paramsPromise }) {
@@ -42,7 +50,6 @@ export default async function Page({ params: paramsPromise }) {
 
   return (
     <main className={styles.container}>
-      <title>{section.name} - Register Forum</title>
       <h1 className={styles.title}>{section.name}</h1>
       <div className={styles.articles}>
         {

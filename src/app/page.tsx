@@ -5,6 +5,10 @@ import { unstable_cache } from "next/cache";
 
 export const revalidate = 3600; // 1 hour in seconds
 
+export const metadata = {
+  title: "Home | Register Forum",
+};
+
 export default async function Home() {
   const data = await unstable_cache(async () => {return await fetchArticles()}, ["home"], {
     revalidate: 3600
@@ -33,6 +37,7 @@ export default async function Home() {
   const featuredHumorArticles = data
     .filter((article) => article.trending && article.type === "humor" && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
+
 
   return (
     <main className={styles.page}>
