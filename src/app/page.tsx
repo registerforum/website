@@ -3,8 +3,6 @@ import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 360; // 1 hour in seconds
-
 export const metadata = {
   title: "Home | Register Forum",
 };
