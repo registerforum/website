@@ -19,7 +19,7 @@ export default async function fetchStaff() {
 
     const response = await sheets.spreadsheets.values.get({
         spreadsheetId: sheetId,
-        range: `Writers!A2:C`, // Adjust the range as needed
+        range: `Staff!A2:C`, // Adjust the range as needed
     });
 
     const rows = response.data.values || [];

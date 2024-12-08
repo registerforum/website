@@ -53,6 +53,7 @@ export default async function Page({ params }) {
               {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
             </React.Fragment>
           ))}
+          <p className={styles.date}>{article.date}</p>
         </div>
       )}
       <article className={styles.body}>
