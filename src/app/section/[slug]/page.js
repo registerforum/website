@@ -53,7 +53,7 @@ export default async function Page({ params: paramsPromise }) {
       <h1 className={styles.title}>{section.name}</h1>
       <div className={styles.articles}>
         {
-          sectionArticles.map((item, index) => (
+          sectionArticles.filter(article => article.visibility).map((item, index) => (
             <LeftImageSmallCard
               key={index}
               title={item.title}

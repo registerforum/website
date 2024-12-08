@@ -62,6 +62,7 @@ export default async function fetchArticles() {
         date: row[3] || null,
         slug: slug,
         cover: await saveImageToLocal(row[6]) || null,
+        visibility: row[9] === "TRUE",
         views: parseInt(row[9]) || null,
         trending: row[10] === "TRUE",
         type: row[11] || null,

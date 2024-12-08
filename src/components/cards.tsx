@@ -7,12 +7,7 @@ export function LeftImageSmallCard(info: Article) {
         <a href={`/writing/${info.slug}`}>
             {info.cover && (
                 <div className={styles.leftcard}>
-                    <Image
-                        src={info.cover}
-                        alt="Picture of the author"
-                        width={200}
-                        height={200}
-                    />
+                    <img src={info.cover} alt="Cover Photo" />
                     <div className={styles.text}>
                         <h2>{info.authors?.map((author, index) => (
                             <span key={index}>
@@ -33,12 +28,7 @@ export function TopImageSmallCard(info: Article) {
         <a href={`/writing/${info.slug}`}>
             {info.cover && (
                 <div className={styles.topcard}>
-                    <Image
-                        src={info.cover}
-                        alt="Picture of the author"
-                        width={200}
-                        height={200}
-                    />
+                    <img src={info.cover} alt="Cover Photo" />
                     <div className={styles.text}>
                         <h1>{info.title}</h1>
                         <h2>{info.authors?.map((author, index) => (
