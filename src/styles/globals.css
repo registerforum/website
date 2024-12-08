@@ -24,16 +24,6 @@ body {
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 600px) {
-  :root {
-    --body-width: 100%;
-  }
-
-  body {
-    padding: 1rem;
-  }
-}
-
 main {
   padding-bottom: 2rem;
   width: 100%;
@@ -70,5 +60,15 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --body-width: 100%;
+  }
+
+  body {
+    padding: 1rem;
   }
 }

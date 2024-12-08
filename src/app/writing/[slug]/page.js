@@ -16,10 +16,12 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
   const articles = await unstable_cache(async () => { return await fetchArticles() }, ["articleMetadata"], {
     revalidate: 360
   })();
+
+  const params = await paramsPromise;
 
   return {
     title: articles.find((a) => a.slug === params.slug).title,

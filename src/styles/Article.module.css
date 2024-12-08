@@ -64,3 +64,15 @@
 .author .position {
     font-style: italic;
 }
+
+@media screen and (min-width: 768px) {
+    .body {
+        font-size: 1.4rem;
+    }
+
+    .image {
+        width: 100vw;
+        position: relative;
+        left: -1rem;
+    }
+}
