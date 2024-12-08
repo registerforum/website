@@ -24,32 +24,35 @@ export default async function Page({ params }) {
   })();
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
-  
+
   return (
-    <main className={styles.container}>
-      <h1 className={styles.title}>{article.title}</h1>
-      <div className={styles.cover}>
-        <img className={styles.image} src={article.cover} alt={article.title} />
-        <p className={styles.caption}>Photo: {article.photocredit}</p>
-      </div>
-      {article.authors && article.authors.length > 0 && (
-        <div className={styles.authors}>
-          {article.authors.map((author, index) => (
-            <React.Fragment key={index}>
-              <a href={`/staff/${author.slug}`} className={styles.author}>
-                <div className={styles.name}>{author.name}</div>
-                <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
-              </a>
-              {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
-            </React.Fragment>
-          ))}
+    <>
+      <title>{article.title} - Register Forum</title>
+      <main className={styles.container}>
+        <h1 className={styles.title}>{article.title}</h1>
+        <div className={styles.cover}>
+          <img className={styles.image} src={article.cover} alt={article.title} />
+          { article.photocredit && <p className={styles.caption}>Photo: {article.photocredit}</p> }
         </div>
-      )}
-      <article className={styles.body}>
-        {pars.map((par, index) => (
-          <p key={index} className={styles.par}>{par}</p>
-        ))}
-      </article>
-    </main>
+        {article.authors && article.authors.length > 0 && (
+          <div className={styles.authors}>
+            {article.authors.map((author, index) => (
+              <React.Fragment key={index}>
+                <a href={`/staff/${author.slug}`} className={styles.author}>
+                  <div className={styles.name}>{author.name}</div>
+                  <p className={styles.position}>,&nbsp;{author.position || "Contributing Writer"}</p>
+                </a>
+                {index < article.authors.length - 1 && <p className={styles.separator}>&</p>}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
+        <article className={styles.body}>
+          {pars.map((par, index) => (
+            <p key={index} className={styles.par}>{par}</p>
+          ))}
+        </article>
+      </main>
+    </>
   );
 }

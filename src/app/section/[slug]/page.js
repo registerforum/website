@@ -42,6 +42,7 @@ export default async function Page({ params: paramsPromise }) {
 
   return (
     <main className={styles.container}>
+      <title>{section.name} - Register Forum</title>
       <h1 className={styles.title}>{section.name}</h1>
       <div className={styles.articles}>
         {

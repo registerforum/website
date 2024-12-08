@@ -1,4 +1,5 @@
-export default async function Page() {
+
+export default function Page() {
     return (
         <main>
             <h1>404</h1>

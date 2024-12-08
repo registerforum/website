@@ -54,9 +54,7 @@ export default async function Page({ params: paramsPromise }) {
   return (
     <>
       <main className={styles.container}>
-        <Head>
-          <title>{person.name} - Register Forum</title>
-        </Head>
+        <title>{person.name} - Register Forum</title>
         <h1 className={styles.name}>{person.name}</h1>
         <h2 className={styles.position}>{person.position || "Contributing Writer"}</h2>
         <div className={styles.articles}>
