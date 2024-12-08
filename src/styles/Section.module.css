@@ -17,3 +17,14 @@
     gap: 1rem;
     justify-content: center;
 }
+
+@media screen and (max-width: 600px) {
+    .articles {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 2em;
+        margin-bottom: 1rem;
+    }
+}

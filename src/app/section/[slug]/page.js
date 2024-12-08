@@ -1,7 +1,7 @@
 import styles from "@/styles/Section.module.css";
 import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
-import { LeftImageSmallCard } from "@/components/cards";
+import { ListCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
 
 export const revalidate = 360;
@@ -57,7 +57,7 @@ export default async function Page({ params: paramsPromise }) {
       <div className={styles.articles}>
         {
           sectionArticles.filter(article => article.visibility).map((item, index) => (
-            <LeftImageSmallCard
+            <ListCard
               key={index}
               title={item.title}
               author={item.authors}

@@ -1,6 +1,6 @@
 import styles from "@/styles/Staff.module.css";
 // import fetchStaff from "@/utils/staff";
-import { LeftImageSmallCard } from "@/components/cards";
+import { ListCard } from "@/components/cards";
 import { unstable_cache } from "next/cache";
 import fetchArticles from "@/utils/articles";
 
@@ -70,7 +70,7 @@ export default async function Page({ params: paramsPromise }) {
         <h2 className={styles.position}>{person.position?.trim() || "Contributing Writer"}</h2>
         <div className={styles.articles}>
           {personArticles.filter(article => article.visibility).map((article) => (
-            <LeftImageSmallCard key={article.slug}
+            <ListCard key={article.slug}
               title={article.title}
               cover={article.cover}
               slug={article.slug}

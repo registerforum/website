@@ -73,3 +73,41 @@
     font-size: 0.8rem;
     font-weight: 400;
 }
+
+.listcard {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.listcard img {
+    /* border-radius: 0.5rem; */
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.listcard div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.25rem;
+    width: fit-content;
+    justify-content: space-between;
+}
+
+.listcard div h2 {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 600px) {
+    .listcard {
+        flex-direction: column;
+    }
+
+    .listcard img {
+        width: 100%;
+        height: fit-content;
+    }
+}
