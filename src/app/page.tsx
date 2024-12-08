@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const data = await unstable_cache(async () => {return await fetchArticles()}, ["home"], {
+  const data = await unstable_cache(async () => { return await fetchArticles() }, ["home"], {
     revalidate: 360
   })();
 
@@ -44,7 +44,7 @@ export default async function Home() {
       <div className={styles.body}>
         <div className={styles.leftcol}>
           <div className={styles.news}>
-
+            <p className={styles.sectiontag}>News</p>
             <div className={styles.featured}>
               {featuredNewsArticles.slice(0, 2).map((item, index) => (
                 <TopImageSmallCard
@@ -77,6 +77,7 @@ export default async function Home() {
             ))}
           </div>
           <div className={styles.sports}>
+            <p className={styles.sectiontag}>Sports</p>
             {featuredSportsArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={index}
@@ -93,6 +94,7 @@ export default async function Home() {
             ))}
           </div>
           <div className={styles.ae}>
+            <p className={styles.sectiontag}>A&E</p>
             {featuredAeArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={index}
@@ -109,6 +111,7 @@ export default async function Home() {
             ))}
           </div>
           <div className={styles.fc}>
+            <p className={styles.sectiontag}>F&C</p>
             {featuredFcArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={index}
@@ -127,6 +130,7 @@ export default async function Home() {
         </div>
         <div className={styles.rightcol}>
           <div className={styles.opinion}>
+            <p className={styles.sectiontag}>Opinion</p>
             {featuredOpinionArticles.slice(0, 4).map((item, index) => (
               <TopImageSmallCard
                 key={index}
@@ -143,6 +147,7 @@ export default async function Home() {
             ))}
           </div>
           <div className={styles.humor}>
+            <p className={styles.sectiontag}>Humor</p>
             {featuredHumorArticles.slice(0, 2).map((item, index) => (
               <TopImageSmallCard
                 key={index}

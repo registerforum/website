@@ -172,3 +172,8 @@
     grid-column-end: 3;
   }
 }
+
+.sectiontag {
+  font-size: 1rem;
+  margin-bottom: calc(-1 * var(--home-gap)/3);
+}
