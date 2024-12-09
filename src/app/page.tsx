@@ -1,6 +1,5 @@
 import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
-import fetchArticles from "@/utils/articles";
 import { google } from "googleapis";
 
 export const revalidate = 600;
