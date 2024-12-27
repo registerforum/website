@@ -1,7 +1,7 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    align-self: center;
+    padding: 0 3rem; /* Adjust as needed */
 }
 
 .name {
@@ -17,11 +17,32 @@
 }
 
 .articles {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    max-width: 750px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
+}
+
+@media screen and (max-width: 1025px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .articles {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .articles {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 2em;
+        margin-bottom: 1rem;
+    }
 }

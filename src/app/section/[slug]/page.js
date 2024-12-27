@@ -58,7 +58,7 @@ export default async function Page({ params: paramsPromise }) {
             <ListCard
               key={index}
               title={item.title}
-              author={item.authors}
+              authors={item.authors}
               date={item.date}
               slug={item.slug}
               cover={item.cover}
