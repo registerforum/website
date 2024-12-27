@@ -3,12 +3,10 @@
 import { useState, useEffect } from 'react'
 
 const SlugPage = () => {
-  const [loading, setLoading] = useState<boolean>(true)
   const [message, setMessage] = useState<string | null>("Loading...")
 
   useEffect(() => {
     const fetchRevalidation = async () => {
-      setLoading(true)
       try {
         setMessage("Revalidating Pages...")
 
@@ -44,7 +42,7 @@ const SlugPage = () => {
       } catch (error) {
         console.error('Error fetching revalidation:', error)
       } finally {
-        setLoading(false)
+        setMessage("Revalidated")
       }
     }
 
