@@ -66,7 +66,7 @@ export default async function Home() {
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredNewsArticles = data
-    .filter((article) => article.trending && article.type === "metro" && article.date) // Filter featured with valid dates
+    .filter((article) => article.trending && (article.type === "metro" || article.type === "nation" || article.type === "as") && article.date) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredSportsArticles = data
