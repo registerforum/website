@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 
 const SlugPage = () => {
-  const [response, setResponse] = useState<any>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -23,10 +22,8 @@ const SlugPage = () => {
         }
 
         const data = await res.json()
-        setResponse(data)
       } catch (error) {
         console.error('Error fetching revalidation:', error)
-        setResponse({ revalidated: false, message: 'Error fetching revalidation' })
       } finally {
         setLoading(false)
       }
@@ -41,8 +38,7 @@ const SlugPage = () => {
 
   return (
     <div>
-      <h1>Revalidation Status for /slug</h1>
-      <pre>{JSON.stringify(response, null, 2)}</pre>
+      <h1>Revalidated</h1>
     </div>
   )
 }
