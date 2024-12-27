@@ -23,7 +23,37 @@ const SlugPage = () => {
           throw new Error('Failed to revalidate')
         }
 
-        setMessage("Revalidating Root...")
+        setMessage("Revalidating Sections...")
+
+        const resSection = await fetch('/api/revalidate', {
+          method: 'POST',
+          headers: {
+        'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ path: '/section/[slug]/page' }),
+        })
+
+        if (!resSection.ok) {
+          setMessage("Failed to revalidate sections")
+          throw new Error('Failed to revalidate sections')
+        }
+
+        setMessage("Revalidating Staff...")
+
+        const resStaff = await fetch('/api/revalidate', {
+          method: 'POST',
+          headers: {
+        'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ path: '/staff/[slug]/page' }),
+        })
+
+        if (!resStaff.ok) {
+          setMessage("Failed to revalidate staff")
+          throw new Error('Failed to revalidate staff')
+        }
+
+        setMessage("Revalidating Home Page...")
 
         const resRoot = await fetch('/api/revalidate', {
           method: 'POST',
