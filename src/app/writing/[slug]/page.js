@@ -2,9 +2,6 @@ import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import React from "react";
 
-export const revalidate = 360;
-export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const articles = await fetchArticles();
 

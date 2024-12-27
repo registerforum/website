@@ -14,7 +14,7 @@ const SlugPage = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ path: '/' }),
+          body: JSON.stringify({ path: '/writing/[slug]/page' }),
         })
 
         if (!res.ok) {
