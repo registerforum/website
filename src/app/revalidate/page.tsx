@@ -20,8 +20,6 @@ const SlugPage = () => {
         if (!res.ok) {
           throw new Error('Failed to revalidate')
         }
-
-        const data = await res.json()
       } catch (error) {
         console.error('Error fetching revalidation:', error)
       } finally {
