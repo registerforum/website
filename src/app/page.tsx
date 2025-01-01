@@ -62,27 +62,47 @@ export default async function Home() {
   const data = articles.filter((article) => article.visibility); // Filter out non-visible articles
 
   const featuredOpinionArticles = data
-    .filter((article) => article.trending && article.type === "opinion" && article.date) // Filter featured with valid dates
+    .filter(
+      (article) =>
+        article.trending && article.type === "opinion" && article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredNewsArticles = data
-    .filter((article) => article.trending && (article.type === "metro" || article.type === "nation" || article.type === "as") && article.date) // Filter featured with valid dates
+    .filter(
+      (article) =>
+        article.trending &&
+        (article.type === "metro" ||
+          article.type === "nation" ||
+          article.type === "as" ||
+          article.type === "news") &&
+        article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredSportsArticles = data
-    .filter((article) => article.trending && article.type === "sports" && article.date) // Filter featured with valid dates
+    .filter(
+      (article) =>
+        article.trending && article.type === "sports" && article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredAeArticles = data
-    .filter((article) => article.trending && article.type === "ae" && article.date) // Filter featured with valid dates
+    .filter(
+      (article) => article.trending && article.type === "ae" && article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredFcArticles = data
-    .filter((article) => article.trending && article.type === "fc" && article.date) // Filter featured with valid dates
+    .filter(
+      (article) => article.trending && article.type === "fc" && article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   const featuredHumorArticles = data
-    .filter((article) => article.trending && article.type === "humor" && article.date) // Filter featured with valid dates
+    .filter(
+      (article) => article.trending && article.type === "humor" && article.date,
+    ) // Filter featured with valid dates
     .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()); // Sort by date descending
 
   return (
