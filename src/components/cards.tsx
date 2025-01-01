@@ -71,7 +71,7 @@ export function ListCard(info: Article) {
                 info.authors[0] && (
                   <span>
                     {info.authors[0].name},{" "}
-                    {info.authors[0].position || "Contributing Writer"}
+                    {info.authors[0].position?.trim() || "Contributing Writer"}
                   </span>
                 )
               )}
