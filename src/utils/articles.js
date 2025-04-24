@@ -7,27 +7,25 @@ const fetchArticles = unstable_cache(async () => {
 
   console.log(rows);
 
-  console.log(rows);
-
   const articles = [];
 
   for (const row of rows) {
-    // let authors = [];
+    let authors = [];
 
-    // try {
-    //   authors = typeof row.writers === "string"
-    //     ? JSON.parse(row.writers)
-    //     : row.writers || [];
-    // } catch (error) {
-    //   authors = [];
-    //   console.error("Error parsing authors:", error);
-    // }
+    try {
+      authors = typeof row.writers === "string"
+        ? JSON.parse(row.writers)
+        : row.writers || [];
+    } catch (error) {
+      authors = [];
+      console.error("Error parsing authors:", error);
+    }
 
-    // authors = authors.map((author) => ({
-    //   name: author.name,
-    //   slug: author.name.toLowerCase().replace(/\s+/g, "-"),
-    //   position: author.role || null,
-    // }));
+    authors = authors.map((author) => ({
+      name: author.name,
+      slug: author.name.toLowerCase().replace(/\s+/g, "-"),
+      position: author.role || null,
+    }));
 
     articles.push({
       title: row.title,
