@@ -20,6 +20,7 @@ const fetchArticles = unstable_cache(async () => {
         : row.writers || [];
     } catch (error) {
       authors = [];
+      console.error("Error parsing authors:", error);
     }
 
     authors = authors.map((author) => ({
