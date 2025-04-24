@@ -5,7 +5,7 @@ const fetchArticles = unstable_cache(async () => {
   const supabase = await createClient();
   const { data: rows } = await supabase.from("articles").select("*");
 
-  console.log(rows);
+  // console.log(rows);
 
   const articles = [];
 
@@ -29,7 +29,7 @@ const fetchArticles = unstable_cache(async () => {
 
     articles.push({
       title: row.title,
-      authors: [
+      authors: authors || [
         {
           name: "Test Author",
           slug: "test-author",
@@ -43,12 +43,12 @@ const fetchArticles = unstable_cache(async () => {
       views: 0,
       trending: row.published,
       type: row.section || null,
-      body: row.body || null,
+      body: row.body || "",
       photocredit: row.image_author || null,
     });
   }
 
-  console.log(articles);
+  // console.log(articles);
 
   return articles;
 }, { revalidate: 300 }); // Revalidate every 5 minutes

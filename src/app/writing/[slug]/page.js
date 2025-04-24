@@ -1,6 +1,7 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import React from "react";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const articles = await fetchArticles();
@@ -12,21 +13,26 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-export async function generateMetadata({ params: paramsPromise }) {
+export async function generateMetadata({ params }) {
+  await params;
   const articles = await fetchArticles();
-
-  const params = await paramsPromise;
+  const article = articles.find((a) => a.slug === params.slug);
 
   return {
-    title: articles.find((a) => a.slug === params.slug).title,
-  }
+    title: article?.title || "Article",
+  };
 }
 
 export default async function Page({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
   const articles = await fetchArticles();
   const article = articles.find((a) => a.slug === slug);
-  const pars = article.body?.split("\n");
+
+  if (!article) {
+    notFound();
+  }
+
+  const pars = article.body?.split("\n") || [];
 
   return (
     <main className={styles.container}>

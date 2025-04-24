@@ -29,6 +29,8 @@ export default async function fetchStaff() {
             staff.find((a) => a.name === article.author).articles.push(article);
         }
     }
+    
+    console.log(staff);
 
     for (const person of staff) {
         if (!person.position) {
