@@ -33,8 +33,9 @@ const fetchArticles = unstable_cache(async () => {
       title: row.title,
       authors: [
         {
-          "name": "Test Author",
-          "role": "Contributing Writer"
+          name: "Test Author",
+          slug: "test-author",
+          position: "Contributing Writer"
         }
       ],
       date: row.date || null,
