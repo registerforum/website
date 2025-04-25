@@ -7,7 +7,7 @@ export default async function fetchLinks() {
     const formattedData = [];
 
     for (let i = 0; i < rows.length; i++) {
-        if (rows[i].type === "parent") {
+        if (rows[i].type == "parent") {
             formattedData.push({
                 Parent: {
                     name: rows[i].name,
@@ -20,8 +20,8 @@ export default async function fetchLinks() {
             });
         }
 
-        if (rows[i].type === "child") {
-            formattedData.find((parent) => parent.Parent.slug === rows[i].slug)?.Children.push({
+        if (rows[i].type == "child") {
+            formattedData.find((parent) => parent.Parent.slug === rows[i].parent)?.Children.push({
                 name: rows[i].name,
                 editors: rows[i].editors,
                 type: rows[i].type,
@@ -30,6 +30,8 @@ export default async function fetchLinks() {
             });
         }
     }
+
+    console.log("Here are the rows: ",formattedData)
 
     console.log("Fetched spreadsheet data.");
 
