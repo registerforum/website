@@ -1,10 +1,13 @@
 import styles from "@/styles/Home.module.css";
 import { LeftImageSmallCard, TopImageSmallCard } from "@/components/cards";
 import { google } from "googleapis";
+import fetchLinks from "@/utils/links";
 
 export const metadata = {
   title: "Home | Register Forum",
 };
+
+fetchLinks();
 
 export default async function Home() {
   const sheetId = process.env.SHEET_ID;

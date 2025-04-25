@@ -21,7 +21,7 @@ export default async function fetchLinks() {
         }
 
         if (rows[i].type == "child") {
-            formattedData.find((parent) => parent.Parent.slug === rows[i].parent)?.Children.push({
+            formattedData.find((parent) => parent.Parent.slug == rows[i].parent)?.Children.push({
                 name: rows[i].name,
                 editors: rows[i].editors,
                 type: rows[i].type,
