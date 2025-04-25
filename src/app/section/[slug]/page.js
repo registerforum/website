@@ -74,7 +74,18 @@ export default async function Page({ params: paramsPromise }) {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>{section.name}</h1>
+      {section.editors ? (
+        <div className={styles.largetop}>
+          <h1 className={styles.title}>{section.name}</h1>
+          <div className={styles.editors}>
+            {section.editors.map((a, index) => (
+              <div key={index}>
+                {a.name} '{a.yog.slice(-2)}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : ( <div className={styles.smalltop}><h1 className={styles.title}>{section.name}</h1></div> ) }
       <div className={styles.articles}>
         {sectionArticles
           .filter((article) => article.visibility)

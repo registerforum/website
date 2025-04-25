@@ -7,9 +7,38 @@
 .title {
     font-size: 3em;
     font-weight: 400;
-    text-align: center;
+}
+
+.largetop {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
     margin-bottom: 1.4rem;
 }
+
+.largetop .editors {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.largetop .title {
+    font-size: 2.5em;
+    font-weight: 400;
+    text-align: center;
+    padding-right: 1rem;
+    border-right: solid 1px #000;
+}
+
+.smalltop {
+    margin-bottom: 1rem;
+}
+
+.smalltop .title {
+    text-align: center;
+}
+
 
 .articles {
     display: grid;
