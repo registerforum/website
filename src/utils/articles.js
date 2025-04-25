@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/client';
 import { unstable_cache } from "next/cache";
 
-const fetchArticles = unstable_cache(async () => {
+async function fetchArticles() {
   const supabase = await createClient();
   const { data: rows } = await supabase.from("articles").select("*");
 
@@ -51,6 +51,6 @@ const fetchArticles = unstable_cache(async () => {
   console.log(articles);
 
   return articles;
-}, { revalidate: 300 }); // Revalidate every 5 minutes
+}; // Revalidate every 5 minutes
 
 export default fetchArticles;

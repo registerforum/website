@@ -1,9 +1,18 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import React from "react";
+import { unstable_cache } from "next/cache";
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles();
+  const articles = await unstable_cache(
+    async () => {
+      return await fetchArticles();
+    },
+    ['article'],
+    {
+      revalidate: 360,
+    },
+  )();
 
   const slugs = articles.map((article) => ({
     slug: article.slug || null,
@@ -13,7 +22,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: paramsPromise }) {
-  const articles = await fetchArticles();
+  const articles = await unstable_cache(
+    async () => {
+      return await fetchArticles();
+    },
+    ['article'],
+    {
+      revalidate: 360,
+    },
+  )();
 
   const params = await paramsPromise;
 
@@ -24,7 +41,15 @@ export async function generateMetadata({ params: paramsPromise }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  const articles = await fetchArticles();
+  const articles = await unstable_cache(
+    async () => {
+      return await fetchArticles();
+    },
+    ['article'],
+    {
+      revalidate: 360,
+    },
+  )();
   const article = articles.find((a) => a.slug === slug);
   const pars = article.body?.split("\n");
 
