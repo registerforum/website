@@ -1,5 +1,4 @@
 import { createClient } from '@/utils/supabase/client';
-import { unstable_cache } from "next/cache";
 
 async function fetchArticles() {
   const supabase = await createClient();
