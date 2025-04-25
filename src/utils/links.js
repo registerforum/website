@@ -1,10 +1,19 @@
 import { createClient } from '@/utils/supabase/client';
 
 export default async function fetchLinks() {
-        const supabase = createClient();
-        const { data: rows } = await supabase.from("sections").select("*");
+    const supabase = createClient();
+    const { data: rows } = await supabase.from("sections").select("*");
+
+    console.log("Here are the rows: ",rows)
 
     const formattedData = [];
+
+    rows.sort((a, b) => {
+        if (a.type === b.type) {
+            return a.order - b.order;
+        }
+        return a.type === "parent" ? -1 : 1;
+    });
 
     for (let i = 0; i < rows.length; i++) {
         if (rows[i].type == "parent") {
