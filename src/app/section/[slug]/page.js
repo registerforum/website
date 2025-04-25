@@ -80,7 +80,7 @@ export default async function Page({ params: paramsPromise }) {
           <div className={styles.editors}>
             {section.editors.map((a, index) => (
               <div key={index}>
-                {a.name} '{a.yog.slice(-2)}
+                {a.name} &apos;{a.yog.slice(-2)}
               </div>
             ))}
           </div>
