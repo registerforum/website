@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/writing/[slug]/page.js", "src/app/section/[slug]/page.js", "src/components/mobilemenu.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/writing/[slug]/page.js", "src/app/section/[slug]/page.js", "src/components/mobilemenu.js", "src/utils/supabase/server.js"],
   "exclude": ["node_modules"]
 }

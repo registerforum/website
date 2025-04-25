@@ -55,6 +55,7 @@ export default async function Page({ params: paramsPromise }) {
   )();
   const section = sections.find((a) => a.slug === params.slug);
   const articles = await fetchArticles();
+  console.log(section);
   var sectionArticles = [];
   if (section.type === "child") {
     sectionArticles = articles.filter((a) => a.type === section.slug);

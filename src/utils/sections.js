@@ -1,53 +1,38 @@
-import { google } from "googleapis";
+import { createClient } from '@/utils/supabase/client';
 
 export default async function fetchSections() {
-    const sheetId = process.env.SHEET_ID;
-    const keys = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-    const auth = await google.auth.getClient({
-        projectId: keys.project_id,
-        credentials: {
-            type: "service_account",
-            private_key: keys.private_key,
-            client_email: keys.client_email,
-        },
-        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
-
-    const sheets = google.sheets({ version: "v4", auth });
-
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: sheetId,
-        range: `Sections!A2:N`,
-    });
-
-    const rows = response.data.values || [];
+    const supabase = createClient();
+    const { data: rows } = await supabase.from("sections").select("*");
 
     const sections = [];
 
+    // console.log("Here are the rows: ",rows)
+
     for (const row of rows) {
-        if (row[2] === "parent" || row[2] === "child") {
+        if (row.type === "parent" || row.type === "child") {
             sections.push({
-                name: row[0] || null,
-                editors: row[1] ? row[1].split(", ") : null,
-                type: row[2] || null,
-                parent: row[3] || null,
-                slug: row[4] || null,
+                name: row.name || null,
+                editors: row.editors || null,
+                type: row.type || "parent",
+                parent: row.parent || null,
+                slug: row.slug || null,
                 children: [],
             });
         } else {
-            const parent = sections.find((a) => a.slug === row[3]);
+            const parent = sections.find((a) => a.slug === row.parent);
             if (parent) {
                 parent.children.push({
-                    name: row[0] || null,
-                    editors: row[1] ? row[1].split(", ") : null,
-                    type: row[2] || null,
-                    parent: row[3] || null,
-                    slug: row[4] || null,
+                    name: row.name || null,
+                    editors: row.editors || null,
+                    type: row.type || "child",
+                    parent: row.parent || null,
+                    slug: row.slug || null,
                 });
             }
         }
     }
+
+    // console.log("Here are the sections: ",sections)
 
     return sections;
 }
