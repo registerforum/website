@@ -1,13 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import fetchArticles from '@/utils/articles';
 import Fuse from 'fuse.js';
 import { LeftImageSmallCard } from '@/components/cards';
 
-
-export default function SearchPage() {
+function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [results, setResults] = useState([]);
@@ -37,27 +36,31 @@ export default function SearchPage() {
       {results.length === 0 ? (
         <p>No articles found.</p>
       ) : (
-        // <ul className="space-y-4">
         <>
-          {
-            results.map((item, index) => (
-              <LeftImageSmallCard
-                key={index}
-                title={item.title}
-                authors={item.authors}
-                date={item.date}
-                slug={item.slug}
-                cover={item.cover}
-                views={item.views}
-                body={item.body}
-                trending={item.trending}
-                type={item.type}
-              />
-            ))
-          }
+          {results.map((item, index) => (
+            <LeftImageSmallCard
+              key={index}
+              title={item.title}
+              authors={item.authors}
+              date={item.date}
+              slug={item.slug}
+              cover={item.cover}
+              views={item.views}
+              body={item.body}
+              trending={item.trending}
+              type={item.type}
+            />
+          ))}
         </>
-        // </ul>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchResults />
+    </Suspense>
   );
 }
