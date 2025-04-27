@@ -2,29 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import fetchArticles from '@/utils/articles';
 import styles from '@/styles/Search.module.css';
-import Fuse from 'fuse.js';
-
-let fuse: Fuse<any> | null = null;
-let articlesCache: any[] = [];
 
 export default function SearchBar() {
     const [query, setQuery] = useState('');
     const router = useRouter();
-
-    useEffect(() => {
-        async function loadArticles() {
-            if (articlesCache.length === 0) {
-                articlesCache = await fetchArticles();
-                fuse = new Fuse(articlesCache, {
-                    keys: ['title', 'authors.name', 'body'],
-                    threshold: 0.3,
-                });
-            }
-        }
-        loadArticles();
-    }, []);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

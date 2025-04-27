@@ -10,13 +10,11 @@ import { LeftImageSmallCard } from '@/components/cards';
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  const [articles, setArticles] = useState([]);
   const [results, setResults] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const fetchedArticles = await fetchArticles();
-      setArticles(fetchedArticles);
 
       if (query) {
         const fuse = new Fuse(fetchedArticles, {
