@@ -16,6 +16,8 @@
 }
 
 .searchbar {
+    -webkit-appearance: none;
+    appearance: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +25,16 @@
     height: 100%;
     padding: 5px;
     background-color: white;
-    border: 1px solid black;
+    border: none;
+    border-bottom: 1px solid black;
     border-radius: 0rem;
     color: black;
 }
 
 .searchbar:focus-visible {
-    border: 1px solid black;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
     border-radius: 0rem;
 }
 

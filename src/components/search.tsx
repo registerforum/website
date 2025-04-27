@@ -1,61 +1,52 @@
 'use client';
 
-import { useState } from 'react';
-import { Article } from '@/types';
-import { LeftImageSmallCard } from './cards';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import fetchArticles from '@/utils/articles';
 import styles from '@/styles/Search.module.css';
+import Fuse from 'fuse.js';
 
-export default function Search({ placeholder }: { placeholder: string }) {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [results, setResults] = useState<Article[]>([]);
+let fuse: Fuse<any> | null = null;
+let articlesCache: any[] = [];
 
-    function handleSearch(term: string) {
-        fetch(`/api/search`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ searchTerm: term }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setResults(data);
-            });
-    }
+export default function SearchBar() {
+    const [query, setQuery] = useState('');
+    const router = useRouter();
+
+    useEffect(() => {
+        async function loadArticles() {
+            if (articlesCache.length === 0) {
+                articlesCache = await fetchArticles();
+                fuse = new Fuse(articlesCache, {
+                    keys: ['title', 'authors.name', 'body'],
+                    threshold: 0.3,
+                });
+            }
+        }
+        loadArticles();
+    }, []);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (query.trim()) {
+            router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+        }
+    };
 
     return (
         <div className={styles.container}>
-            <div className={styles.inputcontainer}>
+            <form onSubmit={handleSubmit} className={styles.inputcontainer}>
                 <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search articles..."
                     className={styles.searchbar}
-                    placeholder={placeholder}
-                    onChange={(e) => {
-                        setSearchTerm(e.target.value);
-                    }}
                 />
-                <button className={styles.searchbutton} onClick={() => {
-                    handleSearch(searchTerm);
-                }}>
-                    Search
+                <button type="submit" className={styles.searchbutton}>
+                    🔍
                 </button>
-            </div>
-            <div className={styles.searchresults}>
-                {results.map((result, index) => (
-                    <LeftImageSmallCard
-                        key={index}
-                        title={result.title}
-                        cover={result.cover}
-                        authors={result.authors}
-                        body={result.body}
-                        slug={result.slug}
-                        date={result.date}
-                        trending={result.trending}
-                        type={result.type}
-                        views={result.views}
-                    />
-                ))}
-            </div>
+            </form>
         </div>
     );
 }

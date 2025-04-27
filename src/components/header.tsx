@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import styles from "@/styles/Header.module.css";
 import Link from 'next/link';
 import { Section } from "@/types";
+import SearchBar from './search';
 
 export default function Header({ links }: Readonly<{ links: Section[] }>) {
     const [windowWidth, setWindowWidth] = useState<number>(0); // Initial value 0
@@ -54,6 +55,7 @@ export default function Header({ links }: Readonly<{ links: Section[] }>) {
             <div className={styles.menu}>
                 {windowWidth >= 900 ? (
                     <>
+                <SearchBar />
                         <div className={styles.linkscontainer}>
                             <ul>
                                 {links.map((section, index) => (
