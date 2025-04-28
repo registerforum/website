@@ -9,7 +9,7 @@ export default function SearchBar() {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const router = useRouter();
 
-    const handleClick = (e: React.FormEvent) => {
+    const handleClick = () => {
         if (isSearchVisible && query.trim()) {
             router.push(`/search?q=${encodeURIComponent(query.trim())}`);
         } else {
