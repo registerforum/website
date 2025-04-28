@@ -10,9 +10,11 @@ function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const fetchedArticles = await fetchArticles();
 
       if (query) {
@@ -24,6 +26,7 @@ function SearchResults() {
       } else {
         setResults([]);
       }
+      setLoading(false);
     }
 
     fetchData();
@@ -33,7 +36,9 @@ function SearchResults() {
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
 
-      {results.length === 0 ? (
+      {loading ? (
+        <p>Searching...</p>
+      ) : results.length === 0 ? (
         <p>No articles found.</p>
       ) : (
         <>

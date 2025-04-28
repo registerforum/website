@@ -73,8 +73,8 @@
 }
 
 .dropdown > a {
-    padding-bottom: 11px;
-    bottom: -11px;
+    padding-bottom: 0.6rem;
+    bottom: -0.6rem;
 }
 
 .dropdownlinks:hover .dropdownlinks {
@@ -195,4 +195,15 @@
         padding: 1rem;
         padding-bottom: 0;
     }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.top > div > a {
+    padding-left: 1rem;
 }

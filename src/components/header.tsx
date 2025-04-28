@@ -45,6 +45,19 @@ export default function Header({ links }: Readonly<{ links: Section[] }>) {
 
     return (
         <header className={styles.container}>
+            <div className={styles.top}>
+                <div className={styles.left}>
+                    <SearchBar />
+                </div>
+                <div className={styles.right}>
+                    <Link href="/about" className={styles.about}>
+                        About
+                    </Link>
+                    <Link href="/contact" className={styles.contact}>
+                        Contact
+                    </Link>
+                </div>
+            </div>
             <Link href="/">
                 <img
                     src={windowWidth > 600 ? "/rf-banner.svg" : "/rf-banner-mobile.svg"}
@@ -55,7 +68,6 @@ export default function Header({ links }: Readonly<{ links: Section[] }>) {
             <div className={styles.menu}>
                 {windowWidth >= 900 ? (
                     <>
-                <SearchBar />
                         <div className={styles.linkscontainer}>
                             <ul>
                                 {links.map((section, index) => (
