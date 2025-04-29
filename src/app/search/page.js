@@ -90,11 +90,9 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <>
+    <Suspense fallback={<div className={styles.searchFallback}>Loading...</div>}>
       <SearchBar />
-      <Suspense fallback={<div className={styles.searchFallback}>Loading...</div>}>
-        <SearchResults />
-      </Suspense>
-    </>
+      <SearchResults />
+    </Suspense>
   );
 }
