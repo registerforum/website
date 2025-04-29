@@ -1,10 +1,35 @@
-'use client'
+'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import fetchArticles from '@/utils/articles';
 import Fuse from 'fuse.js';
 import { LeftImageSmallCard } from '@/components/cards';
+import styles from '@/styles/SearchPage.module.css';
+
+function SearchBar() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [term, setTerm] = useState(searchParams.get('q') || '');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/search?q=${term}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={styles.searchForm}>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+      <button type="submit" className={styles.searchButton}>Search</button>
+    </form>
+  );
+}
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -28,23 +53,24 @@ function SearchResults() {
       }
       setLoading(false);
     }
-
     fetchData();
   }, [query]);
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
-
+    <div className={styles.searchContainer}>
+      <h1 className={styles.searchHeading}>
+        Search Results for &quot;{query}&quot;
+      </h1>
       {loading ? (
-        <p>Searching...</p>
+        <p className={styles.searchLoading}>Searching...</p>
       ) : results.length === 0 ? (
-        <p>No articles found.</p>
+        <p className={styles.searchNoResults}>No articles found.</p>
       ) : (
-        <>
+        <div className={styles.searchResults}>
           {results.map((item, index) => (
             <LeftImageSmallCard
               key={index}
+              className={styles.searchCard}
               title={item.title}
               authors={item.authors}
               date={item.date}
@@ -56,7 +82,7 @@ function SearchResults() {
               type={item.type}
             />
           ))}
-        </>
+        </div>
       )}
     </div>
   );
@@ -64,8 +90,11 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SearchResults />
-    </Suspense>
+    <>
+      <SearchBar />
+      <Suspense fallback={<div className={styles.searchFallback}>Loading...</div>}>
+        <SearchResults />
+      </Suspense>
+    </>
   );
 }

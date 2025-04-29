@@ -1,0 +1,82 @@
+.searchContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+}
+
+.searchHeading {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.searchLoading,
+.searchNoResults {
+    font-size: 1rem;
+    color: #666;
+}
+
+.searchResults {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.searchCard {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.searchCard:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.searchFallback {
+    text-align: left;
+    padding: 2rem;
+}
+
+/* Added styles for the SearchBar */
+.searchForm {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 1rem;
+}
+
+.searchInput {
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: auto;
+    padding: auto;
+    background-color: white;
+    border: none;
+    font-size: 0.9rem;
+    padding-bottom: 3px;
+    border-bottom: 1px solid black;
+    border-radius: 0rem;
+    color: black;
+    width: 100%
+}
+
+.searchInput:focus-visible {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    border-radius: 0rem;
+}
+
+.searchButton {
+    padding: 0.5rem 1rem;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
