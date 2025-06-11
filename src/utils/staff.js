@@ -5,8 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 export default async function fetchStaff() {
     const supabase = await createClient();
     const { data: rows } = await supabase.from("staff").select("*");
-  
-    console.log(rows);
+
 
     const articles = await fetchArticles();
 
@@ -34,7 +33,6 @@ export default async function fetchStaff() {
         }
     }
     
-    console.log(staff);
 
     for (const person of staff) {
         if (!person.position) {
