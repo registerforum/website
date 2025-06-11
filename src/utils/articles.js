@@ -12,8 +12,10 @@ async function fetchArticles() {
     let authors = [];
 
     try {
+      console.log("Row writers:", row.writers);
+
       authors = typeof row.writers === "string"
-        ? JSON.parse(row.writers)
+        ? JSON.parse(row.writers.replace(/'/g, '"'))
         : row.writers || [];
     } catch (error) {
       authors = [];
