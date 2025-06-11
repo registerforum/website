@@ -16,8 +16,11 @@ export async function generateStaticParams() {
       if (!staff.find((a) => a.name === author.name)) {
         staff.push({
           name: author.name || null,
-          slug: author.name?.toLowerCase().replace(/\s/g, "-"),
-          position: 'Contributing Writer',
+          slug: author.name
+            ?.toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/(^-|-$)/g, ""),
+          position: "Contributing Writer",
           articles: [article],
         });
       } else if (!staff.find((a) => a.name === author.name).articles.find((a) => a.slug === article.slug)) {

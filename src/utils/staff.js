@@ -12,10 +12,12 @@ export default async function fetchStaff() {
 
     var staff = rows.map((row) => ({
         name: row.name || null,
-        slug: row.slug ? row.slug.toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "") : null,
-        position: row.titles || "Contributing Writer",
+        slug: row.slug
+            ? row.slug.toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/(^-|-$)/g, "")
+            : null,
+        position: row.titles || 'Contributing Writer',
         articles: articles.filter((a) => a.author === row.name)
     }));
 
