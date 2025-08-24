@@ -23,6 +23,7 @@ async function fetchArticles() {
         : row.writers || [];
     } catch (error) {
       authors = [];
+      console.log(error)
     }
     authors = authors.map((author) => ({
       name: author.name,
