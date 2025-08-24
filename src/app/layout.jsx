@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+// import { Metadata } from "next";
 import "@/styles/globals.css";
 import { Cormorant_Garamond, Sorts_Mill_Goudy } from "next/font/google";
 import fetchLinks from "@/utils/links";
 import { unstable_cache } from "next/cache";
 import Header from "@/components/header";
-import { Section } from "@/types";
+// import { Section } from "@/types";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "400",
@@ -22,7 +22,7 @@ const goudy = Sorts_Mill_Goudy({
   variable: "--goudy",
 })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     template: '%s | Register Forum',
     default: 'Register Forum',
@@ -30,14 +30,10 @@ export const metadata: Metadata = {
   description: "The Official Student Newspaper of CRLS",
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const links: Section[] = await unstable_cache(async () => {
+export default async function RootLayout({ children }) {
+  const links = await unstable_cache(async () => {
     const fetchedLinks = await fetchLinks();
-    return fetchedLinks.map(link => ({
+    return fetchedLinks.map((link) => ({
       name: link.Parent.name,
       editors: link.Parent.editors,
       type: link.Parent.type,

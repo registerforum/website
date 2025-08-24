@@ -1,12 +1,13 @@
 import styles from "@/styles/Carousel.module.css";
 import fetchArticles from "@/utils/articles";
 
+
 export default async function Carousel() {
     const articles = await fetchArticles();
 
     const featuredArticles = articles
         .filter((article) => article.trending && article.date)
-        .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime());
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
         <div className={styles.carousel}>

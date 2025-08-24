@@ -1,8 +1,7 @@
 // app/api/revalidate/route.ts (if using App Directory)
 import { revalidatePath } from 'next/cache'
-import { NextRequest } from 'next/server'
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   const { path } = await request.json() // Parse the JSON body
 
   if (path) {

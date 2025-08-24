@@ -1,7 +1,7 @@
 import styles from "@/styles/Cards.module.css";
-import { Article } from "@/types";
 
-export function LeftImageSmallCard(info: Article) {
+
+export function LeftImageSmallCard(info) {
   return (
     <a href={`/writing/${info.slug}`}>
       {info.cover && (
@@ -25,7 +25,7 @@ export function LeftImageSmallCard(info: Article) {
   );
 }
 
-export function TopImageSmallCard(info: Article) {
+export function TopImageSmallCard(info) {
   return (
     <a href={`/writing/${info.slug}`}>
       {info.cover && (
@@ -49,7 +49,7 @@ export function TopImageSmallCard(info: Article) {
   );
 }
 
-export function ListCard(info: Article) {
+export function ListCard(info) {
   return (
     <a href={`/writing/${info.slug}`}>
       <div className={styles.listcard}>

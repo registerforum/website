@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 import styles from "@/styles/Header.module.css";
 import Link from 'next/link';
-import { Section } from "@/types";
+// import { Section } from "@/types";
 import SearchBar from './search';
 
-export default function Header({ links }: Readonly<{ links: Section[] }>) {
-    const [windowWidth, setWindowWidth] = useState<number>(0); // Initial value 0
-    const [showMenu, setShowMenu] = useState<boolean>(false);
-    const [mounted, setMounted] = useState<boolean>(false); // Tracks if the component is mounted
+export default function Header({ links }) {
+    const [windowWidth, setWindowWidth] = useState(0); // Initial value 0
+    const [showMenu, setShowMenu] = useState(false);
+    const [mounted, setMounted] = useState(false); // Tracks if the component is mounted
 
     // Set the window width and update it on resize only after the component is mounted
     useEffect(() => {

@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import fetchArticles from "@/utils/articles";
 import { unstable_cache } from "next/cache";
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     try {
         const articles = await unstable_cache(async () => { return await fetchArticles() }, ["homepage"], {
             revalidate: 360
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
         const { searchTerm } = await req.json();
 
-        const searchResults = articles.filter((article: { title: string; }) => {
+        const searchResults = articles.filter((article) => {
             return article.title.toLowerCase().includes(searchTerm)
         });
 
