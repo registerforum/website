@@ -2,38 +2,19 @@ import styles from "@/styles/Section.module.css";
 import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
 import { ListCard } from "@/components/cards";
-import { unstable_cache } from "next/cache";
 
 export const revalidate = 360;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const sections = await unstable_cache(
-    async () => {
-      return await fetchSections();
-    },
-    ["section"],
-    {
-      revalidate: 360,
-    },
-  )();
-
+  const sections = await fetchSections();
   return sections.map((section) => ({
     slug: section.slug,
   }));
 }
 
 export async function generateMetadata({ params: paramsPromise }) {
-  const sections = await unstable_cache(
-    async () => {
-      return await fetchSections();
-    },
-    ["section"],
-    {
-      revalidate: 360,
-    },
-  )();
-
+  const sections = await fetchSections();
   const params = await paramsPromise;
   const slug = params.slug;
 
@@ -44,15 +25,7 @@ export async function generateMetadata({ params: paramsPromise }) {
 
 export default async function Page({ params: paramsPromise }) {
   const params = await paramsPromise;
-  const sections = await unstable_cache(
-    async () => {
-      return await fetchSections();
-    },
-    ["section", params.slug],
-    {
-      revalidate: 360,
-    },
-  )();
+  const sections = await fetchSections();
   const section = sections.find((a) => a.slug === params.slug);
   const articles = await fetchArticles();
   console.log(section);
