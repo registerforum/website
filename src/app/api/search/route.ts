@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
         const { searchTerm } = await req.json();
 
-        const searchResults = articles.filter((article) => {
+        const searchResults = articles.filter((article: { title: string; }) => {
             return article.title.toLowerCase().includes(searchTerm)
         });
 

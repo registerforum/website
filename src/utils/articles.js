@@ -1,13 +1,15 @@
 
 import { createClient } from '@/utils/supabase/client';
 
+
 let cachedArticles = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const isTest = process.env.NODE_ENV === 'test';
 
 async function fetchArticles() {
   const now = Date.now();
-  if (cachedArticles && now - cacheTimestamp < CACHE_DURATION) {
+  if (!isTest && cachedArticles && now - cacheTimestamp < CACHE_DURATION) {
     return cachedArticles;
   }
   const supabase = await createClient();
@@ -50,8 +52,10 @@ async function fetchArticles() {
       photocredit: row.image_author || null,
     });
   }
-  cachedArticles = articles;
-  cacheTimestamp = now;
+  if (!isTest) {
+    cachedArticles = articles;
+    cacheTimestamp = now;
+  }
   return articles;
 }
 
