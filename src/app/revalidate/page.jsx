@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 const SlugPage = () => {
-  const [message, setMessage] = useState<string | null>("Loading...")
+  const [message, setMessage] = useState("Loading...")
 
   useEffect(() => {
     const fetchRevalidation = async () => {
