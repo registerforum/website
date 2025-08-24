@@ -1,10 +1,17 @@
+
 import { createClient } from '@/utils/supabase/client';
 
+let cachedLinks = null;
+let linksCacheTimestamp = 0;
+const LINKS_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export default async function fetchLinks() {
+    const now = Date.now();
+    if (cachedLinks && now - linksCacheTimestamp < LINKS_CACHE_DURATION) {
+        return cachedLinks;
+    }
     const supabase = createClient();
     const { data: rows } = await supabase.from("sections").select("*");
-
-    console.log("Here are the rows: ",rows)
 
     const formattedData = [];
 
@@ -40,9 +47,7 @@ export default async function fetchLinks() {
         }
     }
 
-    console.log("Here are the rows: ",formattedData)
-
-    console.log("Fetched spreadsheet data.");
-
+    cachedLinks = formattedData;
+    linksCacheTimestamp = now;
     return formattedData;
 }
