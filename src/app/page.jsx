@@ -13,6 +13,7 @@ fetchLinks();
 export default async function Home() {
   const data = await fetchArticles();
 
+  console.log(`Total articles fetched for homepage: ${data.length}`);
 
   const featuredOpinionArticles = data
     .filter(
@@ -20,6 +21,11 @@ export default async function Home() {
         article.trending && article.type === "opinion" && article.date,
     )
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  console.log(`Featured opinion articles: ${featuredOpinionArticles.length}`);
+  console.log(`All opinion articles: ${data.filter(a => a.type === "opinion").length}`);
+  console.log(`Trending opinion articles: ${data.filter(a => a.trending && a.type === "opinion").length}`);
+  console.log(`Opinion articles with dates: ${data.filter(a => a.type === "opinion" && a.date).length}`);
 
   const featuredNewsArticles = data
     .filter(
