@@ -90,12 +90,17 @@ export default async function Page({ params: paramsPromise }) {
     }
   }
 
+  // Sort articles by date: latest to earliest
+  personArticles = personArticles
+    .filter(article => article.visibility)
+    .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+
   return (
       <main className={styles.container}>
         <h1 className={styles.name}>{person.name}</h1>
         <h2 className={styles.position}>{person.position?.trim() || "Contributing Writer"}</h2>
         <div className={styles.articles}>
-          {personArticles.filter(article => article.visibility).map((article) => (
+          {personArticles.map((article) => (
             <ListCard key={article.slug}
               title={article.title}
               cover={article.cover}

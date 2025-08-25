@@ -31,7 +31,9 @@ export default async function Page({ params: paramsPromise }) {
   console.log(section);
   var sectionArticles = [];
   if (section.type === "child") {
-    sectionArticles = articles.filter((a) => a.type === section.slug);
+    sectionArticles = articles
+      .filter((a) => a.type === section.slug)
+      .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
   } else {
     var subSections = sections
       .filter((a) => a.parent === section.slug)
@@ -42,7 +44,7 @@ export default async function Page({ params: paramsPromise }) {
 
     sectionArticles = articles
       .filter((a) => subSections.includes(a.type))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
   }
 
   return (
