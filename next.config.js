@@ -14,12 +14,8 @@ const nextConfig = {
   },
   // Performance optimizations
   compress: true,
-  swcMinify: true,
-  experimental: {
-    optimizeCss: true,
-  },
   // Static generation for better performance
   output: 'standalone',
 };
 
-export default nextConfig;
+module.exports = nextConfig;

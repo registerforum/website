@@ -56,11 +56,19 @@ async function fetchArticles() {
       let authors = [];
       try {
         authors = typeof row.writers === "string"
-          ? JSON.parse(row.writers.replace(/'/g, '"'))
+          ? JSON.parse(row.writers.replace(/'/g, '"').replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":'))
           : row.writers || [];
       } catch (error) {
         console.log(`Author parsing error for article ${row.slug}:`, error);
-        authors = [];
+        // Try a more lenient parsing approach
+        try {
+          authors = typeof row.writers === "string" 
+            ? eval(`(${row.writers})`) 
+            : row.writers || [];
+        } catch (evalError) {
+          console.log(`Fallback parsing also failed for article ${row.slug}:`, evalError);
+          authors = [];
+        }
       }
       
       if (!Array.isArray(authors)) {
