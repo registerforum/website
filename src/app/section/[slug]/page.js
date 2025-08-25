@@ -2,6 +2,7 @@ import styles from "@/styles/Section.module.css";
 import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
 import { ListCard } from "@/components/cards";
+import { MasonryLayout } from "@/components/masonry";
 
 export const revalidate = 360;
 export const dynamicParams = true;
@@ -62,22 +63,24 @@ export default async function Page({ params: paramsPromise }) {
         </div>
       ) : ( <div className={styles.smalltop}><h1 className={styles.title}>{section.name}</h1></div> ) }
       <div className={styles.articles}>
-        {sectionArticles
-          .filter((article) => article.visibility)
-          .map((item, index) => (
-            <ListCard
-              key={index}
-              title={item.title}
-              authors={item.authors}
-              date={item.date}
-              slug={item.slug}
-              cover={item.cover}
-              views={item.views}
-              body={item.body}
-              trending={item.trending}
-              type={item.type}
-            />
-          ))}
+        <MasonryLayout columns={3} gap="1rem">
+          {sectionArticles
+            .filter((article) => article.visibility)
+            .map((item, index) => (
+              <ListCard
+                key={index}
+                title={item.title}
+                authors={item.authors}
+                date={item.date}
+                slug={item.slug}
+                cover={item.cover}
+                views={item.views}
+                body={item.body}
+                trending={item.trending}
+                type={item.type}
+              />
+            ))}
+        </MasonryLayout>
       </div>
     </main>
   );

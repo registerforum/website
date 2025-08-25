@@ -66,8 +66,18 @@ export function TopImageSmallCard(info) {
 export function ListCard(info) {
   return (
     <a href={`/writing/${info.slug}`}>
-      <div className={styles.listcard}>
-        <img src={info.cover || undefined} alt="Cover Photo" />
+      <div className={`${styles.listcard} ${!info.cover ? styles.noimage : ''}`}>
+        {info.cover && (
+          <Image 
+            src={info.cover} 
+            alt="Cover Photo" 
+            width={400} 
+            height={208}
+            loading="lazy"
+            style={{ objectFit: 'cover' }}
+            className={styles.listcardimage}
+          />
+        )}
         <div className={styles.text}>
           <h1>{info.title}</h1>
           <div className={styles.meta}>
@@ -75,10 +85,10 @@ export function ListCard(info) {
               {info.authors && info.authors.length > 1 ? (
                 <span>
                   {info.authors.map((author, index) => (
-                    <>
+                    <span key={index}>
                       {author.name}
                       {index < info.authors.length - 1 ? ", " : ""}
-                    </>
+                    </span>
                   ))}
                 </span>
               ) : (

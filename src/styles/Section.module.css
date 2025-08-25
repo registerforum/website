@@ -41,28 +41,18 @@
 
 
 .articles {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+    width: 100%;
 }
 
 @media screen and (max-width: 1025px) {
     .container {
         padding: 0 2rem;
     }
-
-    .articles {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 
 @media screen and (max-width: 700px) {
     .container {
         padding: 0 1rem;
-    }
-
-    .articles {
-        grid-template-columns: 1fr;
     }
 
     .title {

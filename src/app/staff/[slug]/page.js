@@ -1,6 +1,7 @@
 import styles from "@/styles/Staff.module.css";
 // import fetchStaff from "@/utils/staff";
 import { ListCard } from "@/components/cards";
+import { MasonryLayout } from "@/components/masonry";
 import fetchArticles from "@/utils/articles";
 import { notFound } from "next/navigation";
 
@@ -100,18 +101,20 @@ export default async function Page({ params: paramsPromise }) {
         <h1 className={styles.name}>{person.name}</h1>
         <h2 className={styles.position}>{person.position?.trim() || "Contributing Writer"}</h2>
         <div className={styles.articles}>
-          {personArticles.map((article) => (
-            <ListCard key={article.slug}
-              title={article.title}
-              cover={article.cover}
-              slug={article.slug}
-              caption={article.caption}
-              authors={article.authors}
-              date={article.date}
-              views={article.views}
-              body={article.body}
-            />
-          ))}
+          <MasonryLayout columns={3} gap="1rem">
+            {personArticles.map((article) => (
+              <ListCard key={article.slug}
+                title={article.title}
+                cover={article.cover}
+                slug={article.slug}
+                caption={article.caption}
+                authors={article.authors}
+                date={article.date}
+                views={article.views}
+                body={article.body}
+              />
+            ))}
+          </MasonryLayout>
         </div>
       </main>
   );
