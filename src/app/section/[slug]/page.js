@@ -2,7 +2,7 @@ import styles from "@/styles/Section.module.css";
 import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
 import { ListCard } from "@/components/cards";
-import { MasonryLayout } from "@/components/masonry";
+import { PaginatedArticles } from "@/components/paginated-articles";
 
 export const revalidate = 360;
 export const dynamicParams = true;
@@ -63,8 +63,8 @@ export default async function Page({ params: paramsPromise }) {
         </div>
       ) : ( <div className={styles.smalltop}><h1 className={styles.title}>{section.name}</h1></div> ) }
       <div className={styles.articles}>
-        <MasonryLayout columns={3} gap="1rem">
-          {sectionArticles
+        <PaginatedArticles 
+          articles={sectionArticles
             .filter((article) => article.visibility)
             .map((item, index) => (
               <ListCard
@@ -80,7 +80,8 @@ export default async function Page({ params: paramsPromise }) {
                 type={item.type}
               />
             ))}
-        </MasonryLayout>
+          itemsPerPage={10}
+        />
       </div>
     </main>
   );
