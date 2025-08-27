@@ -102,7 +102,7 @@ export default async function Page({ params: paramsPromise }) {
         <div className={styles.articles}>
           <PaginatedArticles 
             articles={personArticles}
-            itemsPerPage={10}
+            itemsPerPage={18}
           />
         </div>
       </main>

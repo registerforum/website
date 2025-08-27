@@ -62,10 +62,10 @@ export default async function Page({ params: paramsPromise }) {
           </div>
         </div>
       ) : ( <div className={styles.smalltop}><h1 className={styles.title}>{section.name}</h1></div> ) }
-      <div className={styles.articles}>
+            <div className={styles.articles}>
         <PaginatedArticles 
-          articles={sectionArticles.filter((article) => article.visibility)}
-          itemsPerPage={10}
+          articles={sectionArticles}
+          itemsPerPage={18}
         />
       </div>
     </main>
