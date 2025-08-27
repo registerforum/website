@@ -2,6 +2,7 @@
 import { useState, useMemo } from 'react';
 import { MasonryLayout } from './masonry';
 import { Pagination } from './pagination';
+import { ListCard } from './cards';
 
 export function PaginatedArticles({ articles, itemsPerPage = 10 }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,20 @@ export function PaginatedArticles({ articles, itemsPerPage = 10 }) {
   return (
     <>
       <MasonryLayout columns={3} gap="1rem">
-        {paginatedArticles}
+        {paginatedArticles.map((item, index) => (
+          <ListCard
+            key={item.slug || index}
+            title={item.title}
+            authors={item.authors}
+            date={item.date}
+            slug={item.slug}
+            cover={item.cover}
+            views={item.views}
+            body={item.body}
+            trending={item.trending}
+            type={item.type}
+          />
+        ))}
       </MasonryLayout>
       
       <Pagination

@@ -64,22 +64,7 @@ export default async function Page({ params: paramsPromise }) {
       ) : ( <div className={styles.smalltop}><h1 className={styles.title}>{section.name}</h1></div> ) }
       <div className={styles.articles}>
         <PaginatedArticles 
-          articles={sectionArticles
-            .filter((article) => article.visibility)
-            .map((item, index) => (
-              <ListCard
-                key={index}
-                title={item.title}
-                authors={item.authors}
-                date={item.date}
-                slug={item.slug}
-                cover={item.cover}
-                views={item.views}
-                body={item.body}
-                trending={item.trending}
-                type={item.type}
-              />
-            ))}
+          articles={sectionArticles.filter((article) => article.visibility)}
           itemsPerPage={10}
         />
       </div>
