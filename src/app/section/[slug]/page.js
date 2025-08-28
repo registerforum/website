@@ -1,7 +1,6 @@
 import styles from "@/styles/Section.module.css";
 import fetchSections from "@/utils/sections";
 import fetchArticles from "@/utils/articles";
-import { ListCard } from "@/components/cards";
 import { PaginatedArticles } from "@/components/paginated-articles";
 
 export const revalidate = 360;
@@ -60,7 +59,7 @@ export default async function Page({ params: paramsPromise }) {
           <div className={styles.smalltop}>
             <h1 className={styles.title}>Section Not Found</h1>
           </div>
-          <p>The section "{params.slug}" could not be found.</p>
+          <p>The section &quot;{params.slug}&quot; could not be found.</p>
         </main>
       );
     }
