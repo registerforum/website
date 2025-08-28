@@ -41,15 +41,15 @@ export default async function Page({ params }) {
             className={styles.image} 
             src={article.cover} 
             alt={article.title || 'Article cover image'}
-            width={800}
-            height={400}
+            width={600}
+            height={300}
             priority={true}
             style={{
               width: '100%',
               height: 'auto',
               objectFit: 'cover'
             }}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+            sizes="(max-width: 768px) 100vw, 600px"
           />
           {article.photocredit && <p className={styles.caption}>Photo: {article.photocredit}</p>}
         </div>

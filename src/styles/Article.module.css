@@ -11,7 +11,7 @@
 
 .cover {
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
     object-fit: cover;
     padding-bottom: 1.4rem;
     padding-top: 0.8rem;
@@ -30,7 +30,7 @@
 .body {
     font-size: 1.2rem;
     line-height: 1.4;
-    max-width: 760px;
+    max-width: 600px;
 }
 
 .par {
@@ -40,6 +40,8 @@
 .imageContainer {
     margin: 2rem 0;
     text-align: center;
+    max-width: 600px;
+    width: 100%;
 }
 
 .imageCaption {

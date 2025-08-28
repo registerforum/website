@@ -24,13 +24,13 @@ export function ArticleBody({ content }) {
                 src={imageUrl}
                 alt={altText}
                 width={600}
-                height={400}
+                height={300}
                 style={{
                   width: '100%',
                   height: 'auto',
                   objectFit: 'cover'
                 }}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 600px"
+                sizes="(max-width: 768px) 100vw, 600px"
                 loading="lazy"
               />
               {altText && altText !== imageUrl && (
