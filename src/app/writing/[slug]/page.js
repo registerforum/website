@@ -1,7 +1,9 @@
 import styles from "@/styles/Article.module.css";
 import fetchArticles from "@/utils/articles";
 import React from "react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
+import { ArticleBody } from "@/components/article-body";
 
 export async function generateStaticParams() {
   const articles = await fetchArticles();
@@ -30,15 +32,28 @@ export default async function Page({ params }) {
     notFound();
   }
 
-  const pars = article.body?.split("\n") || [];
-
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>{article.title}</h1>
-      <div className={styles.cover}>
-        <img className={styles.image} src={article.cover} alt={article.title} />
-        {article.photocredit && <p className={styles.caption}>Photo: {article.photocredit}</p>}
-      </div>
+      {article.cover && (
+        <div className={styles.cover}>
+          <Image 
+            className={styles.image} 
+            src={article.cover} 
+            alt={article.title || 'Article cover image'}
+            width={800}
+            height={400}
+            priority={true}
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover'
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+          />
+          {article.photocredit && <p className={styles.caption}>Photo: {article.photocredit}</p>}
+        </div>
+      )}
       {article.authors && article.authors.length > 0 && (
         <div className={styles.authors}>
           {article.authors.map((author, index) => (
@@ -53,11 +68,7 @@ export default async function Page({ params }) {
           <p className={styles.date}>{article.date}</p>
         </div>
       )}
-      <article className={styles.body}>
-        {pars.map((par, index) => (
-          <p key={index} className={styles.par}>{par}</p>
-        ))}
-      </article>
+      <ArticleBody content={article.body} />
     </main>
   );
 }

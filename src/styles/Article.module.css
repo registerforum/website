@@ -37,6 +37,19 @@
     margin-bottom: 1rem;
 }
 
+.imageContainer {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.imageCaption {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
 .container {
     display: flex;
     flex-direction: column;
